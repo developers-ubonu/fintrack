@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrack - Job Profitability Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .back-button {
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        .section {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        .filter-panel {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .filter-group {
+            margin-bottom: 0.75rem;
+        }
+        .filter-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .filter-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        .comparison-scrollbar {
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+        .comparison-table {
+            min-width: 100%;
+            border-collapse: collapse;
+        }
+        .comparison-table th {
+            background: #f8f9fa;
+            padding: 0.5rem;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #666;
+            position: sticky;
+            left: 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .comparison-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+            white-space: nowrap;
+        }
+        .comparison-metric {
+            font-weight: bold;
+            background: #f8f9fa;
+            position: sticky;
+            left: 0;
+        }
+        .job-column {
+            min-width: 120px;
+            text-align: center;
+        }
+        .chart-container {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .chart-placeholder {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+        }
+        .sort-options {
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        .sort-label {
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+        }
+        .profit-positive {
+            color: #28a745;
+        }
+        .profit-negative {
+            color: #dc3545;
+        }
+        .action-bar {
+            padding: 1rem;
+            background: #fff;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+        }
+        .action-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+        .secondary-button {
+            background: #6c757d;
+        }
+        .job-header {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        .job-info {
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="profitability-report.html" class="back-button">←</a>
+            <h1>Job Profitability Comparison</h1>
+        </header>
+        
+        <div class="filter-panel">
+            <div class="filter-group">
+                <label class="filter-label">Time Period</label>
+                <select>
+                    <option>Last 30 days</option>
+                    <option>Last Quarter</option>
+                    <option>Current Year (2025)</option>
+                    <option>Custom Date Range</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label class="filter-label">Job Type</label>
+                <select>
+                    <option>All Services</option>
+                    <option>Landscaping</option>
+                    <option>Lawn Maintenance</option>
+                    <option>Garden Design</option>
+                    <option>Snow Removal</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label class="filter-label">Client</label>
+                <select>
+                    <option>All Clients</option>
+                    <option>Johnson Residence</option>
+                    <option>Miller Property</option>
+                    <option>Cooper Residence</option>
+                    <option>Thompson Residence</option>
+                    <option>Garcia Family</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label class="filter-label">Comparison Type</label>
+                <select>
+                    <option>Profitability</option>
+                    <option>Revenue</option>
+                    <option>Cost Structure</option>
+                    <option>Time Efficiency</option>
+                </select>
+            </div>
+            
+            <button class="filter-button">Apply Filters</button>
+        </div>
+        
+        <div class="sort-options">
+            <span class="sort-label">Sort by:</span>
+            <select>
+                <option>Profit (high to low)</option>
+                <option>Profit (low to high)</option>
+                <option>Profit Margin</option>
+                <option>Completion Date</option>
+                <option>Revenue</option>
+            </select>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-placeholder">Profitability Comparison Chart</div>
+            <div style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">
+                Comparing profit margins across selected jobs
+            </div>
+        </div>
+        
+        <div class="comparison-scrollbar">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Metrics</th>
+                        <td class="job-column">
+                            <div class="job-header">Backyard Landscaping</div>
+                            <div class="job-info">Johnson Residence</div>
+                        </td>
+                        <td class="job-column">
+                            <div class="job-header">Garden Maintenance</div>
+                            <div class="job-info">Cooper Residence</div>
+                        </td>
+                        <td class="job-column">
+                            <div class="job-header">Weekly Lawn Service</div>
+                            <div class="job-info">Garcia Family</div>
+                        </td>
+                        <td class="job-column">
+                            <div class="job-header">Average</div>
+                            <div class="job-info">All Jobs</div>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="comparison-metric">Revenue</td>
+                        <td>$1,500.00</td>
+                        <td>$750.00</td>
+                        <td>$240.00</td>
+                        <td>$830.00</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-metric">Materials</td>
+                        <td>$325.00</td>
+                        <td>$250.00</td>
+                        <td>$35.00</td>
+                        <td>$203.33</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-metric">Contractor Costs</td>
+                        <td>$400.00</td>
+                        <td>$375.00</td>
+                        <td>$75.00</td>
+                        <td>$283.33</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-metric">Fuel/Transport</td>
+                        <td>$45.00</td>
+                        <td>$25.00</td>
+                        <td>$15.00</td>
+                        <td>$28.33</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-metric">Other Expenses</td>
+                        <td>$280.00</td>
+                        <td>$175.00</td>
+                        <td>$20.00</td>
+                        <td>$158.33</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-metric">Net Profit</td>
+                        <td class="profit-positive">$450.00</td>
+                        <td class="profit-negative">-$75.00</td>
+                        <td class="profit-positive">$95.00</td>
+                        <td class="profit-positive">$156.67</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-metric">Profit Margin</td>
+                        <td class="profit-positive">30.0%</td>
+                        <td class="profit-negative">-10.0%</td>
+                        <td class="profit-positive">39.6%</td>
+                        <td class="profit-positive">18.9%</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-metric">Hours Worked</td>
+                        <td>18</td>
+                        <td>12</td>
+                        <td>3</td>
+                        <td>11</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-metric">Profit per Hour</td>
+                        <td class="profit-positive">$25.00</td>
+                        <td class="profit-negative">-$6.25</td>
+                        <td class="profit-positive">$31.67</td>
+                        <td class="profit-positive">$14.24</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Key Insights</div>
+            <ul>
+                <li>Weekly lawn service has the highest profit margin at 39.6%</li>
+                <li>Garden maintenance is unprofitable with -10% margin</li>
+                <li>Contractor costs represent the highest expense category across all jobs</li>
+                <li>Profit per hour is highest for weekly lawn service at $31.67/hr</li>
+            </ul>
+        </div>
+        
+        <div class="action-bar">
+            <a href="#" class="action-button">Export to PDF</a>
+            <a href="#" class="action-button secondary-button">Export to CSV</a>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px; padding: 10px;">
+        <p><strong>Mockup Navigation:</strong></p>
+        <p>
+            <a href="index.html">Job List View</a> | 
+            <a href="job-detail.html">Job Detail View</a> | 
+            <a href="profitability-report.html">Profitability Report</a> | 
+            <a href="comparison-view.html">Comparison View</a> |
+            <a href="expense-association.html">Expense Association</a>
+        </p>
+    </div>
+</body>
+</html>

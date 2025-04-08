@@ -1,7 +1,7 @@
-# User Needs Analysis
+# User Needs Analysis - FinTrack
 
 ## Metadata
-**Version:** 1.1
+**Version:** 1.3
 **Status:** Draft
 **Last Updated:** April 8, 2025
 **Owner:** FinTrack Project Manager
@@ -12,7 +12,7 @@ To identify and document the needs, goals, and pain points of small landscaping 
 
 ## Success Criteria
 - [ ] Clear identification of primary user personas for small service businesses
-- [ ] Comprehensive use cases that reflect real-world financial tracking scenarios
+- [ ] Comprehensive use cases that reflect real-world financial tracking scenarios and MVP capabilities
 - [ ] User journey maps highlighting key touchpoints and pain points in financial management
 
 ## Content Requirements
@@ -83,100 +83,161 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - Plans to operate mostly via cash and e-transfers initially
 
 ### 2. Use Cases
-- **Use Case Name:** Job Profitability Tracking
+
+*(Original Use Cases + Suggested + New UC-CoM)*
+
+- **Use Case Name (UC-JP):** Job Profitability Tracking
   - **Description:** Track all income and expenses (including **Contractor** payments) related to a specific service job to determine profitability.
   - **Actors:** Business owner
   - **Steps:**
-    1. Create a new job in the system with client details and job specifications.
-    2. Record all income/payments for the job.
-    3. Track all direct expenses (materials, fuel, etc.) and associate them with the job.
-    4. Track payments made to **Contractors** associated with the job.
-    5. Generate a profitability report that shows revenue, expenses (incl. **Contractor** payments), and net profit.
+    1.  Create a new job in the system with client details and job specifications. (See UC-JM)
+    2.  Record all income/payments for the job. (See UC-CT or related invoicing payment tracking via UC-IG)
+    3.  Track all direct expenses (materials, fuel, etc.) and associate them with the job. (See UC-ME)
+    4.  Track payments made to **Contractors** associated with the job. (See UC-CP)
+    5.  Generate a profitability report that shows revenue, expenses (incl. **Contractor** payments), and net profit.
   - **Expected Outcome:** Clear understanding of each job's financial performance with accurate profit calculation.
 
-- **Use Case Name:** Mobile Expense Tracking
+- **Use Case Name (UC-ME):** Mobile Expense Tracking
   - **Description:** Quickly log business expenses (materials, fuel, etc.) while in the field and associate them with specific jobs.
   - **Actors:** Business owner, potentially **Contractor** (if granted permission in future versions for job-specific expenses they incur and bill for)
   - **Steps:**
-    1. Open mobile app and select "Add Expense" function.
-    2. Enter expense details (amount, vendor, category).
-    3. Select the associated job/client.
-    4. Take photo of receipt (if applicable).
-    5. Save the expense (works offline if needed).
+    1.  Open mobile app and select "Add Expense" function.
+    2.  Enter expense details (amount, vendor, category).
+    3.  Select the associated job/client. (Requires access to job/client list - See UC-JM, UC-CM)
+    4.  Take photo of receipt (if applicable).
+    5.  Save the expense (works offline if needed).
   - **Expected Outcome:** Accurate expense records captured in real-time with minimal effort.
 
-- **Use Case Name:** **Contractor** Payment Tracking
-  - **Description:** Record payments made to independent **Contractors** for services rendered on specific jobs.
+- **Use Case Name (UC-CoM):** Contractor Management **(New)**
+  - **Description:** Add, view, search, and manage basic contractor information necessary for tracking payments.
   - **Actors:** Business owner
   - **Steps:**
-    1. Select the relevant **Contractor**.
-    2. Enter payment details (amount, date, payment method).
-    3. Associate the payment with the specific job(s) the **Contractor** worked on.
-    4. Update job costing records.
-    5. View payment history per **Contractor**.
-  - **Expected Outcome:** Accurate tracking of payments to **Contractors**, contributing to correct job profitability calculations.
+    1.  Select option to view Contractor List.
+    2.  View list of existing contractors with key details (e.g., Name, Contact).
+    3.  Select option to Add New Contractor.
+    4.  Enter contractor details (Name - Individual/Business, Contact Info - Phone/Email).
+    5.  Save new contractor information.
+    6.  Select an existing contractor to view/edit basic details.
+    7.  Use search/filter function to find specific contractors in the list.
+  - **Expected Outcome:** An organized list of contractors is maintained, enabling efficient selection for payment tracking (UC-CP) and job costing (UC-JP).
 
-- **Use Case Name:** GST/QST Reporting
-  - **Description:** Generate a clear summary report for GST/QST filing.
+- **Use Case Name (UC-CP):** Contractor Payment Tracking
+  - **Description:** Record payments made to independent **Contractors** for services rendered on specific jobs or for general services.
+  - **Actors:** Business owner
+  - **Steps:**
+    1.  Ensure the **Contractor** exists in the system (See UC-CoM) and select them. **(Updated Step)**
+    2.  Enter payment details (amount, date, payment method).
+    3.  Associate the payment with the specific job(s) the **Contractor** worked on (optional, requires job list access - see UC-JM).
+    4.  Update job costing records (if associated with a job - see UC-JP).
+    5.  View payment history per **Contractor**.
+  - **Expected Outcome:** Accurate tracking of payments to **Contractors**, contributing to correct job profitability calculations and overall expense tracking.
+
+- **Use Case Name (UC-TR):** GST/QST Reporting
+  - **Description:** Generate a clear summary report for GST/QST filing preparation.
   - **Actors:** Business owner, accountant
   - **Steps:**
-    1. Enter sales and expenses with GST/QST details.
-    2. Generate a report for a specific period (monthly, quarterly, annually).
-    3. Export the report as PDF or CSV for filing or sharing with accountant.
-  - **Expected Outcome:** Accurate totals for sales, GST/QST collected, Input Tax Credits (ITCs), and net owed/refundable.
+    1.  Ensure sales (via invoices or direct income entry) and expenses are recorded with GST/QST details. (See UC-IG, UC-ME)
+    2.  Generate a tax report for a specific period (monthly, quarterly, annually).
+    3.  View calculated totals for sales, GST/QST collected, Input Tax Credits (ITCs).
+    4.  See net tax owed/refundable calculation.
+    5.  Export the report as PDF or CSV for filing or sharing with accountant.
+  - **Expected Outcome:** Accurate summary totals for sales, GST/QST collected, Input Tax Credits (ITCs), and net owed/refundable, simplifying tax preparation.
 
-- **Use Case Name:** Invoice Generation
+- **Use Case Name (UC-IG):** Invoice Generation
   - **Description:** Create and send professional invoices to clients.
   - **Actors:** Business owner
   - **Steps:**
-    1. Select client and associated job(s).
-    2. Review job details and pricing.
-    3. Generate invoice with appropriate tax calculations.
-    4. Send invoice via email or export as PDF.
-    5. Track payment status.
-  - **Expected Outcome:** Professional invoices delivered promptly with correct tax calculations.
+    1.  Select client and associated job(s). (See UC-CM, UC-JM)
+    2.  Review job details and enter line items/pricing.
+    3.  Generate invoice preview with appropriate tax calculations (GST/QST if applicable).
+    4.  Send invoice via email or export as PDF.
+    5.  Track invoice payment status (e.g., Draft, Sent, Paid, Overdue).
+    6.  Record payments received against the invoice.
+  - **Expected Outcome:** Professional invoices delivered promptly with correct tax calculations, and payment status tracked.
 
-- **Use Case Name:** Cash Payment Tracking (Client)
-  - **Description:** Track cash payments received from clients for informal operators.
+- **Use Case Name (UC-CT):** Cash Payment Tracking (Client)
+  - **Description:** Track cash payments received from clients, especially for informal operators or immediate payments.
   - **Actors:** Business owner
   - **Steps:**
-    1. Quickly record cash payment received from client.
-    2. Associate payment with service provided (minimal details).
-    3. Update daily/weekly cash income totals.
-    4. Review cash flow summary.
+    1.  Quickly record cash payment received (amount, date).
+    2.  Associate payment with client and optionally a service/job (minimal details needed). (See UC-CM, UC-JM)
+    3.  Update daily/weekly cash income totals.
+    4.  Review cash flow summary (or contribution to weekly summary).
   - **Expected Outcome:** Simple view of cash received with minimal data entry effort, supporting basic income tracking for informal operations.
 
-- **Use Case Name:** Weekly Profit Summary View
+- **Use Case Name (UC-WS):** Weekly Profit Summary View
   - **Description:** Provide a simple weekly overview of income versus expenses (including **Contractor** payments) for quick business health assessment.
   - **Actors:** Business owner
   - **Steps:**
-    1. Access weekly summary dashboard.
-    2. View total income for the week across all clients/jobs.
-    3. View total expenses by basic category (fuel, materials, **Contractor payments**, etc.).
-    4. See calculated weekly profit/loss figure.
-    5. Compare to previous weeks (optional).
+    1.  Access weekly summary dashboard/view.
+    2.  View total income recorded for the week across all clients/jobs.
+    3.  View total expenses recorded by basic category (fuel, materials, **Contractor payments**, etc.).
+    4.  See calculated weekly profit/loss figure.
+    5.  Optionally compare to previous weeks.
   - **Expected Outcome:** Clear, at-a-glance understanding of weekly financial performance with minimal complexity.
 
-- **Use Case Name:** Tax Guidance for New Businesses
-  - **Description:** Provide basic information and links about Quebec tax obligations and thresholds for new/growing businesses.
+- **Use Case Name (UC-TG):** Tax Guidance Access
+  - **Description:** Access basic information and links about Quebec tax obligations and thresholds, particularly for new/growing businesses. (Replaces "Tax Guidance for New Businesses" for clarity).
   - **Actors:** Business owner, prospective business owner
   - **Steps:**
-    1. Access tax information section within the app.
-    2. Review GST/QST registration thresholds and requirements (via links/summaries).
-    3. Access information about common deductible expenses for the industry (via links/summaries).
-    4. Receive notifications when approaching tax thresholds based on tracked income.
-    5. Get links to official resources (Revenu Québec, CRA) for further information.
-  - **Expected Outcome:** Increased confidence and understanding of tax obligations, reducing anxiety around formalization and compliance.
+    1.  Access tax information section within the app.
+    2.  View informational summaries or links regarding GST/QST registration thresholds and requirements.
+    3.  Access informational summaries or links about common deductible expenses for the industry.
+    4.  Receive system notifications when approaching tax thresholds based on tracked income (if feature enabled).
+    5.  Access links to official resources (Revenu Québec, CRA) for definitive information.
+  - **Expected Outcome:** Increased awareness and reduced anxiety regarding tax obligations via curated information and links; facilitates transition to formal compliance.
+
+- **Use Case Name (UC-CM):** Client Management
+  - **Description:** Add, view, search, and manage basic client information necessary for job tracking and invoicing.
+  - **Actors:** Business owner
+  - **Steps:**
+    1.  Select option to view Client List.
+    2.  View list of existing clients with key details (e.g., Name, Contact).
+    3.  Select option to Add New Client.
+    4.  Enter client details (Name, Contact Info - Phone/Email/Address).
+    5.  Save new client information.
+    6.  Select an existing client to view/edit details.
+    7.  Use search/filter function to find specific clients in the list.
+  - **Expected Outcome:** An organized list of clients is maintained, enabling efficient selection for jobs and invoicing.
+
+- **Use Case Name (UC-JM):** Job Management
+  - **Description:** Create new jobs, associate them with clients, track basic job status, and view job history.
+  - **Actors:** Business owner
+  - **Steps:**
+    1.  Select option to view Job List.
+    2.  View list of existing jobs with key details (e.g., Name/Description, Client, Status).
+    3.  Select option to Add New Job.
+    4.  Enter job details (Name/Description, Location, Service Type).
+    5.  Associate the job with an existing Client (from client list - see UC-CM).
+    6.  Set initial job Status (e.g., Planned, In-Progress).
+    7.  Save new job information.
+    8.  Select an existing job to view details or update status (e.g., mark as Complete).
+    9.  Use search/filter function to find specific jobs (e.g., by client, by status).
+  - **Expected Outcome:** Jobs are created and tracked, allowing expenses and income to be associated correctly for profitability analysis.
+
+- **Use Case Name (UC-AM):** Account Management
+  - **Description:** Manage user login, profile information, and application settings like language preference. (Corresponds to "Account Settings & Profile" in MVP Scope).
+  - **Actors:** Business owner (User)
+  - **Steps:**
+    1.  User logs into the application using credentials (email/password).
+    2.  Access Profile/Settings section.
+    3.  View current business profile information.
+    4.  Edit basic profile information (e.g., Business Name, Contact Info).
+    5.  Select preferred language (English/French) for the application interface.
+    6.  Access option to change password or initiate password reset flow.
+    7.  Log out of the application.
+  - **Expected Outcome:** User can securely access their account, manage basic profile details, set language preference, and maintain account security.
 
 ### 3. User Journey Maps
+
 - **Journey Name:** New Job Financial Lifecycle
   - **Stages:**
-    1. Job creation and initial quoting
-    2. Material purchasing and expense tracking
-    3. Job execution (potentially involving **Contractors**) and additional expense/cost tracking
-    4. Job completion, **Contractor** payment processing, and client invoice generation
-    5. Payment collection (client) and reconciliation
-    6. Profitability analysis (including **Contractor** costs)
+    1.  Job creation and initial quoting
+    2.  Material purchasing and expense tracking
+    3.  Job execution (potentially involving **Contractors**) and additional expense/cost tracking
+    4.  Job completion, **Contractor** payment processing, and client invoice generation
+    5.  Payment collection (client) and reconciliation
+    6.  Profitability analysis (including **Contractor** costs)
   - **Touchpoints:**
     - Mobile app for field expenses
     - Desktop interface for invoicing and reporting
@@ -197,12 +258,12 @@ To identify and document the needs, goals, and pain points of small landscaping 
 
 - **Journey Name:** Offline Expense Tracking
   - **Stages:**
-    1. Purchase materials/supplies at vendor
-    2. Log expense offline in the field
-    3. Tag expense to a specific job/client
-    4. Add receipt documentation
-    5. Sync data when back online
-    6. Verify expense in financial reports
+    1.  Purchase materials/supplies at vendor
+    2.  Log expense offline in the field
+    3.  Tag expense to a specific job/client
+    4.  Add receipt documentation
+    5.  Sync data when back online
+    6.  Verify expense in financial reports
   - **Touchpoints:**
     - Mobile app (offline mode)
     - Receipt capture functionality
@@ -221,12 +282,12 @@ To identify and document the needs, goals, and pain points of small landscaping 
 
 - **Journey Name:** Tax Reporting Cycle
   - **Stages:**
-    1. Ongoing recording of sales with appropriate GST/QST
-    2. Tracking of expenses with input tax credits
-    3. Periodic (monthly/quarterly) review of tax status
-    4. Tax period filing preparation
-    5. Report generation for accountant
-    6. Actual filing with tax authorities
+    1.  Ongoing recording of sales with appropriate GST/QST
+    2.  Tracking of expenses with input tax credits
+    3.  Periodic (monthly/quarterly) review of tax status
+    4.  Tax period filing preparation
+    5.  Report generation for accountant
+    6.  Actual filing with tax authorities
   - **Touchpoints:**
     - Expense entry with tax classification
     - Invoice creation with tax calculations
@@ -245,19 +306,19 @@ To identify and document the needs, goals, and pain points of small landscaping 
 
 - **Journey Name:** Informal-to-Formal Transition Journey
   - **Stages:**
-    1. Initial cash-based income tracking with minimal structure
-    2. Gradual addition of expense categories and basic profit tracking
-    3. Exploration of tax rules and obligations (GST/QST thresholds)
-    4. Decision to formalize business operations
-    5. Implementation of invoicing and formal payment tracking (clients and potentially **Contractors**)
-    6. First tax filing as a registered business
+    1.  Initial cash-based income tracking with minimal structure
+    2.  Gradual addition of expense categories and basic profit tracking
+    3.  Exploration of tax rules and obligations (GST/QST thresholds via Tax Guidance)
+    4.  Decision to formalize business operations
+    5.  Implementation of invoicing and formal payment tracking (clients and potentially **Contractors**)
+    6.  First tax filing as a registered business
   - **Touchpoints:**
     - Simple weekly profit dashboard
-    - Tax information resources
-    - Invoice/quote creation tools
-    - Client management transition
-    - **Contractor** payment tracking
-    - First GST/QST reporting
+    - Tax information resources (UC-TG)
+    - Invoice/quote creation tools (UC-IG)
+    - Client management transition (UC-CM)
+    - **Contractor** management and payment tracking (UC-CoM, UC-CP)
+    - First GST/QST reporting (UC-TR)
   - **Pain Points:**
     - Anxiety around tax compliance and registration
     - Uncertainty about when/how to register for GST/QST
@@ -266,7 +327,7 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - Potential client relationship changes (receipt issuance, tax charging)
     - Potential need to formalize agreements with **Contractors**.
   - **Opportunities:**
-    - Provide clear guidance on formalization process
+    - Provide clear guidance on formalization process via UC-TG
     - Offer simplified tax information resources
     - Create smooth transition between operating models
     - Support gradual feature adoption as business formalizes
@@ -274,18 +335,18 @@ To identify and document the needs, goals, and pain points of small landscaping 
 
 - **Journey Name:** Seasonal Transition Journey
   - **Stages:**
-    1. End-of-season financial review for landscaping
-    2. Preparation for winter operations (snow removal)
-    3. Adaptation to different billing models (per-visit vs monthly/per-storm)
-    4. Equipment and material expense tracking changes
-    5. Managing different client expectations and service models
-    6. End-of-winter financial analysis and landscaping preparation
+    1.  End-of-season financial review for landscaping
+    2.  Preparation for winter operations (snow removal)
+    3.  Adaptation to different billing models (per-visit vs monthly/per-storm)
+    4.  Equipment and material expense tracking changes
+    5.  Managing different client expectations and service models
+    6.  End-of-winter financial analysis and landscaping preparation
   - **Touchpoints:**
-    - Service type switch in the application
-    - Contract management for recurring clients
-    - Seasonal profit comparison views
-    - Equipment and material inventory changes
-    - Storm event tracking (snow operations)
+    - Service type switch in the application (part of UC-JM)
+    - Contract management for recurring clients (Future Feature)
+    - Seasonal profit comparison views (Reporting Feature)
+    - Equipment and material inventory changes (Expense Tracking - UC-ME)
+    - Storm event tracking (snow operations) (Future Feature)
   - **Pain Points:**
     - Different profitability metrics between service types
     - Transitioning clients between service models
@@ -294,7 +355,7 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - Tracking different expense categories by season
   - **Opportunities:**
     - Provide unified financial view across service types
-    - Support different billing/contract models by season
+    - Support different billing/contract models by season (Future)
     - Enable service-specific reporting and analysis
     - Simplify year-round financial planning
 
@@ -303,26 +364,27 @@ To identify and document the needs, goals, and pain points of small landscaping 
   - Mix of English, French, and bilingual participants
   - Focus on solo operators and small businesses (engaging 1-10 employees/**Contractors**)
   - Key Interview Topics:
-    1. Current Software Usage:
+    1.  Current Software Usage:
        - Accounting/bookkeeping solutions
        - Invoicing tools
        - Expense tracking methods
        - Payment processing systems
        - Job scheduling/**Contractor** management tools
        - Integration points between current tools
-    2. Price Sensitivity:
+    2.  Price Sensitivity:
        - Current software expenditure
        - Perceived value of proposed solution
        - Willingness to pay assessment
        - Price point preferences
        - ROI expectations
-    3. Seasonal Operations:
+    3.  Seasonal Operations:
        - Winter service offerings (snow removal)
        - Seasonal financial tracking differences
        - Contract structure variations
        - Material usage tracking needs
 - [ ] Surveys distributed to broader service business community in Quebec
 - [ ] Observational studies of current financial management processes (if feasible)
+- [ ] Usability testing of prototypes based on defined Use Cases.
 
 ## Assumptions
 - [ ] Target users are comfortable using smartphones for basic business tasks
@@ -336,24 +398,24 @@ To identify and document the needs, goals, and pain points of small landscaping 
 ## Risks
 - [ ] Users may resist adoption if the learning curve is too steep
   - Impact: Low user adoption and retention
-  - Mitigation: Focus on intuitive UX with minimal training requirements; offer simple onboarding process
+  - Mitigation: Focus on intuitive UX with minimal training requirements; offer simple onboarding process based on Use Cases.
 - [ ] Incorrect tax calculations could lead to compliance issues
   - Impact: Legal/financial repercussions for users; loss of trust
-  - Mitigation: Consult with tax experts; rigorously test tax calculation functions
+  - Mitigation: Consult with tax experts; rigorously test tax calculation functions (related to UC-TR, UC-IG).
 - [ ] Offline functionality may be technically challenging to implement reliably
-  - Impact: User frustration, potential data loss
-  - Mitigation: Prioritize robust offline-first architecture; implement reliable sync mechanisms
+  - Impact: User frustration, potential data loss (related to UC-ME)
+  - Mitigation: Prioritize robust offline-first architecture; implement reliable sync mechanisms.
 - [ ] Competition from established financial tools
   - Impact: Difficulty gaining market share
-  - Mitigation: Focus on unique value proposition (job costing, QC GST/QST focus, simplicity, **Contractor** tracking)
+  - Mitigation: Focus on unique value proposition (job costing, QC GST/QST focus, simplicity, **Contractor** tracking).
 - [ ] User confusion regarding legal classification of **Contractors** vs. Employees.
   - Impact: Potential misreliance on app terminology, legal risks for users.
-  - Mitigation: Clear disclaimers, focus on tracking payments not classification, encourage professional advice.
+  - Mitigation: Clear disclaimers, focus on tracking payments (UC-CP) and managing contacts (UC-CoM) not classification, encourage professional advice.
 
 ## Budget Allocation
 - [ ] Reserve a portion of the budget for marketing and onboarding post-MVP
   - **Marketing:** Landing page, targeted ads (e.g., Facebook for Quebec service businesses)
-  - **Onboarding:** Bilingual help guides and tutorial videos
+  - **Onboarding:** Bilingual help guides and tutorial videos aligned with key Use Cases.
   - **Initial budget:** Approximately 15-20% of total project budget
 
 ## Review Notes
@@ -364,11 +426,12 @@ To identify and document the needs, goals, and pain points of small landscaping 
   - Status:
 
 ## Change Log
-| Date | Version | Changed By | Changes Made |
-|------|---------|------------|--------------|
-| April 4, 2025 | 1.0 | FinTrack PM | Created initial User Needs Analysis |
-| April 8, 2025 | 1.1 | FinTrack PM | Standardized terminology: Replaced "helper," "crew member" (where appropriate) with "**Contractor**". Adjusted relevant Personas, Use Cases, Journey Maps, Assumptions, and Risks accordingly. Added specific Use Case for **Contractor** Payment Tracking. |
-
+| Date          | Version | Changed By   | Changes Made                                                                                                                               |
+| :------------ | :------ | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| April 4, 2025 | 1.0     | FinTrack PM  | Created initial User Needs Analysis                                                                                                        |
+| April 8, 2025 | 1.1     | FinTrack PM  | Standardized terminology: Replaced "helper," "crew member" with "**Contractor**". Adjusted relevant sections. Added UC for Contractor Payments. |
+| April 8, 2025 | 1.2     | Gemini Model | Added suggested Use Cases: UC-CM (Client Management), UC-JM (Job Management), UC-AM (Account Management) based on scope analysis. Renamed UC-TG. Minor adjustments for consistency. |
+| April 8, 2025 | 1.3     | Gemini Model | Added **UC-CoM (Contractor Management)** based on dependency analysis. Updated UC-CP step 1 to reference UC-CoM. Updated Next Steps. |
 
 ## Sign-off
 - [ ] Technical Review
@@ -376,9 +439,10 @@ To identify and document the needs, goals, and pain points of small landscaping 
 - [ ] Stakeholder Review
 - [ ] Final Approval
 
-## Next Steps
+## Next Steps **(Updated)**
 - [x] Validate user personas through stakeholder interviews
 - [x] Schedule user interviews with service business owners
 - [x] Review technical feasibility of offline functionality
 - [x] Define detailed MVP feature scope based on this analysis
 - [ ] Create prototype screens for key use cases (postponed)
+- [ ] **Begin decomposition of MVP Use Cases (UC-JP, UC-ME, UC-CoM, UC-CP, UC-TR, UC-IG, UC-CT, UC-WS, UC-TG, UC-CM, UC-JM, UC-AM) into detailed Functional Requirements with Acceptance Criteria.**

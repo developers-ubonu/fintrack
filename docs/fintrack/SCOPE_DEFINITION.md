@@ -1,9 +1,9 @@
 # Scope Definition Document - FinTrack
 
 ## Metadata
-**Version:** 0.2
+**Version:** 0.3
 **Status:** Draft
-**Last Updated:** April 7, 2025
+**Last Updated:** April 8, 2025
 **Owner:** FinTrack Project Manager
 **Reviewers:** [To be determined]
 
@@ -11,14 +11,14 @@
 **Required Artifacts:**
 - Problem Statement Document
 - User Needs Analysis
-- Problem Domain Model (v0.2 or later)
+- Problem Domain Model (v0.3 or later)
+- MVP Feature Scope Document (v1.3 or later)
 
 **Dependent Artifacts:**
 - Business Case Document
 - Solution Vision Document
 - Project Timeline and Budget
 - Technical Specifications Document
-- MVP Feature Scope Document
 
 ## Purpose
 This document clearly defines the boundaries, constraints, and assumptions of the FinTrack project to establish a shared understanding of what is and is not included in the solution. It serves as a reference point for scope management throughout the project lifecycle and sets realistic expectations for all stakeholders.
@@ -41,7 +41,7 @@ This document clearly defines the boundaries, constraints, and assumptions of th
 
 ## Validation Methods
 - [ ] Review with key stakeholders
-- [x] Consistency check with Problem Statement, User Needs, Problem Domain Model
+- [x] Consistency check with Problem Statement, User Needs, Problem Domain Model, MVP Feature Scope
 - [x] Verification of alignment with project goals
 - [ ] Assessment of scope feasibility
 - [ ] Stakeholder sign-off
@@ -51,24 +51,24 @@ This document clearly defines the boundaries, constraints, and assumptions of th
 ### 1. Project Boundaries
 
 #### 1.1 Solution Scope
-FinTrack is a financial management application specifically designed for small landscaping, lawn care, and related service businesses (e.g., snow removal, cleaning) in Quebec. The solution will focus on core financial tracking features essential for these businesses, including job profitability tracking, expense management with receipt capture, client management, invoicing, basic contractor payment tracking, and Quebec-specific tax handling (GST/QST) including informational guidance. The solution will not address comprehensive accounting needs, payroll processing, or detailed scheduling/dispatching functionality in the MVP.
+FinTrack is a financial management application specifically designed for small landscaping, lawn care, and related service businesses (e.g., snow removal, cleaning) in Quebec. The solution will focus on core financial tracking features essential for these businesses, including job profitability tracking, expense management with receipt capture, client management, basic contractor management (add/edit/view/track payments), invoicing, and Quebec-specific tax handling (GST/QST calculation and informational guidance). The solution will not address comprehensive accounting needs, payroll processing, or detailed scheduling/dispatching functionality in the MVP.
 
 #### 1.2 User Scope
 The solution targets three primary user personas:
 - Solo Operators (individuals who handle all aspects of their business themselves)
-- Small Crew Owners (businesses with 2-10 employees or **contractors**)
+- Small Crew Owners (businesses with 2-10 employees or contractors)
 - Prospective/Early-Stage Operators (individuals planning to start or who recently started a service business)
 
 The solution does not target medium or large enterprises, franchises, or businesses significantly outside the field service industry focus in the initial phases.
 
 #### 1.3 Functional Scope
 The functional scope includes:
-- User account management and basic business profile
-- Client information management
+- User account settings and basic business profile
+- Client information management (add/edit/view)
 - Job/work tracking and profitability calculation
 - Mobile-friendly expense tracking with receipt capture
 - Basic invoicing with tax calculation
-- Tracking payments made to contractors
+- Basic contractor management (add/edit/view) and payment tracking
 - Simple financial reporting
 - Quebec-specific GST/QST support (calculation and informational guidance)
 - Offline capability for essential functions
@@ -89,7 +89,8 @@ The solution impacts the core financial management processes of small service bu
 - Revenue tracking and client management
 - Job costing and profitability analysis
 - Tax management (GST/QST calculation, reporting preparation, informational guidance)
-- Invoice generation and payment tracking (client payments and contractor payments)
+- Invoice generation and payment tracking (client payments)
+- Contractor payment tracking
 
 ### 2. In-Scope/Out-of-Scope Items
 
@@ -97,10 +98,10 @@ The solution impacts the core financial management processes of small service bu
 
 | Category | Item | Description | Priority | Justification |
 |----------|------|-------------|----------|--------------|
-| User & Account Management | User Authentication | Secure login and account management | High | Foundation for secure data access |
-| User & Account Management | Business Profile | Basic business information storage | Medium | Required for invoicing and context |
-| User & Account Management | Language Preference | Toggle between English and French | Medium | Essential for Quebec market |
-| Client Management | Client Database | Store client contact information | High | Foundation for job tracking and invoicing |
+| Account Settings & Profile | User Authentication | Secure login and account management | High | Foundation for secure data access |
+| Account Settings & Profile | Business Profile | Basic business information storage | Medium | Required for invoicing and context |
+| Account Settings & Profile | Language Preference | Toggle between English and French | Medium | Essential for Quebec market |
+| Client Management | Add/Edit/View Clients | Create, update, and view client contact information | High | Foundation for job tracking and invoicing |
 | Client Management | Client Type Tracking | Differentiate one-time vs. recurring clients | Medium | Supports business relationship management |
 | Client Management | Client Search & Filter | Find clients quickly | Medium | Improves efficiency in the field |
 | Job Management | Job Creation & Tracking | Record job details and status | Critical | Core unit for measuring profitability |
@@ -116,11 +117,11 @@ The solution impacts the core financial management processes of small service bu
 | Invoicing | Email Sending | Send invoices via email | Medium | Client delivery method |
 | Payment Tracking (Client) | Payment Recording | Track client payments against invoices or jobs | High | Cash flow monitoring |
 | Payment Tracking (Client) | Payment Method Tracking | Track cash, e-transfer, check payments | Medium | Reflects business reality |
-| Contractor Management | Basic Contractor Tracking | Store basic contractor contact info | Medium | Foundation for tracking payments |
+| Contractor Management | Basic Contractor Management | Add, edit, and view basic contractor contact info | Medium | Foundation for tracking payments |
 | Contractor Management | Contractor Payment Tracking | Record payments made to contractors | Medium | Needed for accurate job costing & expense tracking |
-| Tax Management | GST/QST Calculation & Tracking | Monitor collected and paid taxes accurately | High | Compliance requirement |
-| Tax Management | Tax Status Monitoring & Guidance | Track revenue against tax thresholds; provide informational alerts & links to official resources (e.g., regarding thresholds, registration). | High | Supports growing/formalizing businesses; addresses key user anxiety |
-| Tax Management | Tax Filing Reports | Generate basic summary reports for tax filing preparation | Medium-High | Reduces administrative burden |
+| **Tax Features** | GST/QST Calculation & Tracking | Monitor collected and paid taxes accurately | High | Compliance requirement |
+| **Tax Features** | Tax Status Monitoring & Guidance | Track revenue against tax thresholds; provide informational alerts & links to official resources (e.g., regarding thresholds, registration). | High | Supports growing/formalizing businesses; addresses key user anxiety |
+| **Tax Features** | Tax Filing Reports | Generate basic summary reports for tax filing preparation | Medium-High | Reduces administrative burden |
 | Financial Reporting | Job Profitability Report | Show profit/loss by job | High | Informs business decisions |
 | Financial Reporting | Weekly/Monthly Summary | Show overall financial health | Medium-High | Quick business health check |
 | Financial Reporting | Export to CSV/PDF | Export data for external use | Medium | Integration with accountant workflows |
@@ -214,8 +215,10 @@ The solution impacts the core financial management processes of small service bu
 #### 5.1 MVP Criteria
 The Minimum Viable Solution for FinTrack must:
 - Enable users to track expenses with receipt capture in the field (offline essential).
+- Allow users to add, edit, and view basic client and contractor information.
 - Allow users to associate expenses with specific jobs/clients.
-- Calculate job profitability based on income and expenses (including basic contractor costs).
+- Allow users to track payments made to contractors.
+- Calculate job profitability based on income and expenses (including contractor costs).
 - Provide basic invoicing capabilities with GST/QST support.
 - Support offline expense entry with reliable synchronization.
 - Offer a simple weekly profit summary view.
@@ -223,21 +226,22 @@ The Minimum Viable Solution for FinTrack must:
 - Support both English and French interfaces.
 - Work efficiently on mobile devices.
 
-#### 5.2 MVP Features
+#### 5.2 MVP Features **(Updated Section)**
 
-| Feature | Description | Must-Have Functionality | Could-Have Functionality |
-|---------|-------------|--------------------------|-----------------------|
-| User Management | Account creation and authentication | Basic registration, login, password reset | Business profile customization |
-| Client Management | Tracking client information | Basic client details (name, contact, address), client listing | Client type (recurring/one-time), notes, search/filter |
+| Feature Area | Description | Must-Have Functionality | Could-Have Functionality |
+|--------------|-------------|--------------------------|-----------------------|
+| Account Settings & Profile | Account creation and authentication | Basic registration, login, password reset, language preference | Business profile customization |
+| Client Management | Tracking client information | **Add/Edit/View basic client details** (name, contact, address), client listing | Client type (recurring/one-time), notes, search/filter |
 | Job Tracking | Recording job details and status | Job creation with client association, basic details, status tracking | Job categories, detailed job notes |
 | Expense Tracking | Recording business expenses | Expense entry, basic categories, receipt photo capture, offline capability, job association | Vendor management, custom categories |
 | Invoice Creation | Generating client invoices | Basic invoice creation, job association, GST/QST calculation, PDF export | Email sending, basic templates |
 | Payment Tracking (Client) | Recording payments received | Basic payment recording (date, amount, method) against invoice/job, payment status | Payment history, partial payments |
-| Contractor Management | Basic contractor tracking | Contractor contact storage, basic payment recording | Contractor list/search |
-| Tax Management | Quebec GST/QST handling | Basic tax calculation on invoices, tax paid tracking on expenses, **Tax threshold alerts, Links to official tax guidance** | Tax report generation for filing prep |
+| Contractor Management | Basic contractor tracking | **Add/Edit/View contractor contacts**, contractor listing, basic payment recording | Contractor list/search |
+| **Tax Features** | Quebec GST/QST handling | Basic tax calculation on invoices, tax paid tracking on expenses, Tax threshold alerts, Links to official tax guidance | Tax report generation for filing prep |
 | Financial Reporting | Business financial insights | Job profitability calculation, weekly profit summary | Historical comparisons, graphical reports |
-| Offline Functionality | Working without internet | Offline expense entry, receipt capture, **offline view of client/job list (read-only)**, data synchronization | Conflict resolution UI |
+| Offline Functionality | Working without internet | Offline expense entry, receipt capture, offline view of client/job list (read-only), data synchronization | Conflict resolution UI |
 | Bilingual Support | English and French interface | Core interface elements in both languages | Complete help documentation in both languages |
+| **Data Utilities** | Basic data handling | Export data (CSV), basic backup concept | Import data |
 
 #### 5.3 MVP Success Measures
 The MVP will be considered successful if:
@@ -246,13 +250,14 @@ The MVP will be considered successful if:
 3. Invoice generation with proper GST/QST is verified as accurate by testing.
 4. Offline expense entry works reliably in field conditions with >95% sync success.
 5. Users report spending at least 25% less time on financial administration.
-6. Users can successfully navigate core functions in their preferred language.
-7. Beta users confirm the value of tax threshold alerts and guidance links.
-8. 70% of beta users express willingness to pay within the $10-20/month range.
+6. Users can successfully add/edit/view clients and contractors.
+7. Users can successfully navigate core functions in their preferred language.
+8. Beta users confirm the value of tax threshold alerts and guidance links.
+9. 70% of beta users express willingness to pay within the $10-20/month range.
 
 ### 6. Future Phase Considerations
 
-*(Minor updates for consistency)*
+*(No major changes needed here, consistent with MVP Scope v1.3)*
 
 | Feature/Item | Description | Tentative Phase | Prerequisites | Business Value |
 |--------------|-------------|-----------------|---------------|---------------|
@@ -260,7 +265,7 @@ The MVP will be considered successful if:
 | Contract Management | Creating and managing service contracts | Phase 2 | Basic client management | Medium for recurring clients |
 | Bank Integration | Connecting to bank accounts for transaction import | Phase 2 | Secure data architecture | High for reducing manual entry |
 | Enhanced Receipt Management | OCR, automated categorization | Phase 2 | Basic receipt capture | Medium for efficiency |
-| Advanced Contractor Mgmt | Time tracking, communication, contracts | Phase 3 | Basic Contractor Tracking | High for businesses with crews |
+| Advanced Contractor Mgmt | Time tracking, communication, contracts | Phase 3 | Basic Contractor Management | High for businesses with crews |
 | Calendar Integration | Sync with business calendars | Phase 3 | Job scheduling (Future) | Medium for organization |
 | Quote/Estimate Creation | Create professional quotes before jobs | Phase 2/3 | Basic invoicing | Medium for sales process |
 | Customer Portal | Client self-service for invoices/payments | Phase 3 | Invoicing system | Low-Medium for client convenience |
@@ -307,6 +312,7 @@ The MVP will be considered successful if:
 |------|---------|------------|--------------|
 | April 7, 2025 | 0.1 | FinTrack PM | Initial creation of Scope Definition Document |
 | April 7, 2025 | 0.2 | FinTrack PM | Incorporated review suggestions: Standardized terminology ("Contractor"); Clarified scope of Tax Guidance (informational links/alerts) in MVP; Ensured consistency with MVP Feature Scope details. Added A-11 assumption. Updated Risk 2. |
+| April 8, 2025 | 0.3 | Gemini Model | Aligned feature names (Tax Features) & scope details (Contractor Add/Edit) with MVP Feature Scope v1.3. Updated MVP Features table for clarity. Minor wording consistency adjustments. |
 
 ## Sign-off
 - [ ] Technical Review
@@ -315,7 +321,7 @@ The MVP will be considered successful if:
 - [ ] Final Approval
 
 ## Next Steps
-- Review scope definition (v0.2) with key stakeholders
+- Review scope definition (v0.3) with key stakeholders
 - Validate technical feasibility of MVP features including Tax Guidance component
 - Refine phased implementation timeline
 - Develop detailed requirements based on defined scope

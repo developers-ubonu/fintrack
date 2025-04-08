@@ -41,7 +41,7 @@ Business owner gains a clear understanding of each job's financial performance w
    - Total Costs (Expenses + Contractor Payments)
    - Net profit calculation (Revenue - Total Costs)
    - Profit margin percentage (or 'N/A')
-5. Business owner can view a detailed breakdown of all individual financial transactions (revenue, expenses, contractor payments) related to the job
+5. Business owner can view a **detailed list of individual financial transactions** (revenue received, expenses, contractor payments) associated with the job, showing date, description/category, and amount for each transaction.
 6. Business owner can generate a basic profitability report for the job
 7. Business owner can return to the job list view, which displays profitability indicators for all jobs
 
@@ -141,7 +141,7 @@ Business owner gains a clear understanding of each job's financial performance w
 
 **Error Handling / Alternate Flows:**
 - If no financial data exists: Display zeros with a message indicating no financial data has been recorded
-- If job is in progress: Display an indicator that profitability is preliminary
+- If job is in progress: Display an indicator that profitability is **preliminary** (calculations reflect data recorded to date and will change).
 - If revenue is zero: Display profit margin as 'N/A'.
 
 **Acceptance Criteria:**
@@ -220,7 +220,7 @@ Business owner gains a clear understanding of each job's financial performance w
 
 **Title:** Job Profitability Report Generation
 
-**Description:** The system must generate a **basic** profitability report for a specific job, showing the core financial components that contribute to its profitability calculation.
+**Description:** The system must generate a **basic** profitability report for a specific job, showing the core financial components that contribute to its profitability calculation, including itemized transaction lists.
 
 **Actors:** Business Owner
 
@@ -235,9 +235,9 @@ Business owner gains a clear understanding of each job's financial performance w
 2. System retrieves comprehensive financial data for the job (via REQ-JP-02)
 3. System organizes data into report sections:
    - Job overview (client, dates, service type)
-   - Revenue breakdown (based on payments received)
-   - Expense breakdown (by category)
-   - Contractor payment details
+   - Revenue breakdown (based on payments received, listing individual items)
+   - Expense breakdown (by category, listing individual items)
+   - Contractor payment details (listing individual payments)
    - Profit calculation (clearly stating calculation basis: cash/received)
 4. System formats the report for clean viewing
 5. System provides basic export options (PDF, CSV)
@@ -248,9 +248,9 @@ Business owner gains a clear understanding of each job's financial performance w
 **Outputs / Expected Results:**
 - Formatted profitability report containing:
   - Job identification and basic details
-  - Revenue breakdown with dates and sources (Received basis)
+  - Itemized Revenue breakdown with dates and sources (Received basis)
   - Itemized expense list with categorization
-  - Detailed contractor payment information
+  - Detailed contractor payment information (individual payments)
   - Clear profit calculation (indicating calculation basis)
   - Key metrics (profit margin or 'N/A')
 
@@ -262,7 +262,7 @@ Business owner gains a clear understanding of each job's financial performance w
 **Acceptance Criteria:**
 - Given a completed job with full financial records,
   When the business owner requests a profitability report,
-  Then a basic report is generated showing core revenue (received), expenses, contractor payments, net profit calculation (indicating basis), and profit margin.
+  Then a basic report is generated showing core revenue (received, itemized), expenses (itemized), contractor payments (itemized), net profit calculation (indicating basis), and profit margin.
 
 - Given a job with partial financial records,
   When the business owner requests a profitability report,
@@ -308,7 +308,7 @@ Business owner gains a clear understanding of each job's financial performance w
 * `Unprofitable:` Net Profit < 0
 * `Break-even:` Net Profit = 0
 * `Information Needed:` Job status is 'Completed' AND (Total Revenue = 0 OR Total Costs = 0)
-* `Preliminary:` Job Status is 'In Progress' or 'Planned'
+* `Preliminary:` Job Status is 'In Progress' or 'Planned' (calculations reflect data to date)
 
 **Error Handling / Alternate Flows:**
 - If profitability cannot be calculated due to errors: Display an error/unknown indicator.
@@ -367,7 +367,9 @@ Business owner gains a clear understanding of each job's financial performance w
 **Error Handling / Alternate Flows:**
 - If job list cannot be retrieved (offline): Allow expense entry without job association, flag for later association using a streamlined process.
 - If expense is associated with wrong job: Provide ability to reassign to correct job easily.
-- For general business expenses: Allow explicitly marking as non-job specific quickly.
+- For general business expenses: Allow explicitly marking as **non-job specific** quickly. Expenses marked as 'non-job specific' are treated as general business overhead and are **excluded** from individual job profitability calculations.
+
+**(Note:** For MVP, splitting a single expense entry across multiple jobs is not supported. Expenses must either be associated with one job or marked as non-job specific.)
 
 **Acceptance Criteria:**
 - Given a new expense entry,
@@ -420,6 +422,8 @@ Business owner gains a clear understanding of each job's financial performance w
 - Updated job profitability calculation
 - Confirmation of successful association
 
+**(Note:** For MVP, associating a single revenue entry (like one payment received) to multiple jobs is not directly supported. If a payment covers multiple jobs, the user should record separate revenue entries associated with each respective job.)
+
 **Error Handling / Alternate Flows:**
 - If job list cannot be retrieved (offline): Allow revenue entry without job association, flag for later association
 - If revenue is associated with wrong job: Provide ability to reassign to correct job
@@ -463,7 +467,7 @@ Business owner gains a clear understanding of each job's financial performance w
 1. When recording a contractor payment, system provides option to associate with one or more jobs
 2. System displays list of jobs for selection (with search/filter capability)
 3. Business owner selects the appropriate job(s)
-4. If multiple jobs selected, business owner specifies allocation amount or percentage per job
+4. If multiple jobs selected, business owner specifies allocation amount or percentage per job. **The system must validate that the sum of allocated amounts equals the total contractor payment amount before saving.**
 5. System creates association between contractor payment and selected job(s)
 6. System updates job profitability calculations to include the contractor payment expense
 
@@ -477,6 +481,8 @@ Business owner gains a clear understanding of each job's financial performance w
 - Updated job profitability calculation(s)
 - Confirmation of successful association
 
+**(Note:** For MVP, the system records the payment amount precisely as entered by the user. Verifying this amount against specific work performed relies on the user's external processes and is outside the scope of this requirement. The focus is on tracking the payment as an expense against the job(s).)
+
 **Error Handling / Alternate Flows:**
 - If job list cannot be retrieved (offline): Allow payment recording without job association, flag for later association
 - If contractor payment is associated with wrong job: Provide ability to reassign to correct job
@@ -488,7 +494,7 @@ Business owner gains a clear understanding of each job's financial performance w
   Then the payment is linked to that job and the job's profitability is recalculated.
 
 - Given a contractor payment that applies to multiple jobs,
-  When the business owner specifies allocation percentages across jobs,
+  When the business owner specifies allocation percentages across jobs and the allocation totals match the payment amount,
   Then the system distributes the expense accordingly and updates each job's profitability.
 
 - Given a previously recorded contractor payment without job association,
@@ -618,7 +624,9 @@ The following features and paths derived from the initial description are explic
 * **Exception Path E4:** User choice between Cash vs. Accrual basis for profitability calculation (MVP uses a default basis).
 * **Exception Path E5:** User-selectable toggle to view profitability including tax impact vs. excluding tax considerations (MVP displays profit based on a default view and shows tax info separately).
 * **REQ-JP-03:** Advanced reporting features beyond basic data presentation (e.g., complex visualizations, comparative metrics).
-* **REQ-JP-06:** Complex revenue splitting across multiple jobs.
+* **REQ-JP-05:** Splitting a single expense entry across multiple jobs.
+* **REQ-JP-06:** Splitting a single revenue entry across multiple jobs.
+* **REQ-JP-07:** Verifying contractor payment amount against work performed within the application.
 * **REQ-JP-08:** Profitability Comparison View functional requirement.
 * **REQ-JP-10:** User-selectable toggle for different tax impact views in profitability calculation.
 * **Advanced Expense Association:** Suggestions based on date/location proximity, etc.

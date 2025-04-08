@@ -7,6 +7,10 @@
 ### Overview
 Track all income and expenses (including Contractor payments) related to a specific service job to determine profitability, enabling business owners to understand which jobs are most profitable and improve pricing decisions.
 
+**(Non-Functional Requirement Note:** All profitability calculations presented to the user, particularly summary figures and list view indicators (REQ-JP-04), must be displayed quickly and efficiently. The system should feel responsive, potentially utilizing strategies like background processing or pre-computation where appropriate to meet performance expectations on mobile devices.)
+
+**(Calculation Basis Note:** For MVP simplicity and alignment with common user cash flows, profitability is calculated on a cash/received basis.)
+
 ### Actors
 - Primary: Business Owner
 - Secondary: None
@@ -26,17 +30,17 @@ Track all income and expenses (including Contractor payments) related to a speci
 - Any job-related income/payments are recorded (via UC-CT or UC-IG)
 
 ### Expected Outcome
-Business owner gains a clear understanding of each job's financial performance with accurate profit calculation (based on recorded transactions), enabling better business decisions related to pricing, service offerings, and contractor engagement.
+Business owner gains a clear understanding of each job's financial performance with accurate profit calculation (based on recorded transactions and MVP calculation basis), enabling better business decisions related to pricing, service offerings, and contractor engagement.
 
 ### Primary Path
 1. Business owner navigates to the job list view in the application
 2. Business owner selects a specific job to view its details
 3. The system displays job information including the client, service type, status, and dates
 4. The system calculates and displays a **concise financial summary** for the job, focused on quick assessment, showing:
-   - Total revenue (based on recorded payments/invoices as per MVP calculation basis)
+   - Total revenue (based on payments received)
    - Total Costs (Expenses + Contractor Payments)
    - Net profit calculation (Revenue - Total Costs)
-   - Profit margin percentage
+   - Profit margin percentage (or 'N/A')
 5. Business owner can view a detailed breakdown of all individual financial transactions (revenue, expenses, contractor payments) related to the job
 6. Business owner can generate a basic profitability report for the job
 7. Business owner can return to the job list view, which displays profitability indicators for all jobs
@@ -46,10 +50,10 @@ Business owner gains a clear understanding of each job's financial performance w
 #### A1: Profitability Tracking Without Contractor Payments
 1. Follow steps 1-3 of the primary path
 2. The system calculates and displays a simplified financial summary showing:
-   - Total revenue
+   - Total revenue (Received)
    - Total Costs (Expenses only in this case)
    - Net profit calculation (Revenue - Expenses)
-   - Profit margin percentage
+   - Profit margin percentage (or 'N/A')
 3. Continue with steps 5-7 of the primary path
 
 #### A2: Profitability Recalculation After Job Completion
@@ -87,13 +91,13 @@ Business owner gains a clear understanding of each job's financial performance w
 
 #### E4: Partial Client Payments
 1. Business owner records a partial payment for a job invoice
-2. System calculates profitability based on the **default MVP calculation basis (e.g., cash/received basis)**.
+2. System calculates profitability based on the **default MVP cash/received basis**, reflecting actual payments received.
 3. System clearly indicates the calculation basis (e.g., "Based on payments received") in the profitability report/summary.
 
 #### E5: Tax Calculation Impact on Profitability
 1. Business owner views profitability for a job that includes GST/QST
 2. System detects that tax calculations affect the profitability view
-3. System displays profitability calculations **based on a default view (e.g., pretax)** and shows relevant tax figures (GST/QST collected/paid) separately for informational purposes.
+3. System displays profitability calculations **based on the default pre-tax view** and shows relevant tax figures (GST/QST collected/paid) separately for informational purposes.
 
 ## Functional Requirements
 
@@ -115,22 +119,22 @@ Business owner gains a clear understanding of each job's financial performance w
 1. Retrieve all applicable revenue entries associated with the job
 2. Retrieve all expense entries associated with the job
 3. Retrieve all contractor payment records associated with the job
-4. Calculate total revenue sum (based on MVP default, e.g., payments received)
+4. Calculate total revenue sum (**based on payments received** against associated invoices or directly recorded job income).
 5. Calculate total expense sum
 6. Calculate total contractor payment sum
 7. Calculate **Total Costs** (Total Expenses + Total Contractor Payments)
 8. Calculate net profit (Total Revenue - Total Costs)
-9. Calculate profit margin percentage (Net Profit / Total Revenue × 100%). Handle division by zero if revenue is zero (e.g., display 'N/A' or 0%).
+9. Calculate profit margin percentage (Net Profit / Total Revenue × 100%). **If Total Revenue is zero, the margin is considered Not Applicable ('N/A').**
 10. Display the core financial summary prominently in the job details view
 
 **Inputs:**
 - Job ID
 
 **Outputs / Expected Results (Core Summary Block):**
-- Total revenue amount (formatted currency, indicating basis e.g., 'Received')
+- Total revenue amount (formatted currency, indicating basis: '**Received**')
 - Total Costs amount (formatted currency)
 - Net profit amount (formatted currency)
-- Profit margin percentage (or N/A)
+- Profit margin percentage (**or 'N/A' if revenue is zero**)
 - Visual indicator of profitability status (e.g., color coding)
 - Separate display area for relevant tax totals (GST/QST collected/paid) if applicable.
   **(Note:** Detailed expense breakdowns by category are available via transaction list or basic report).
@@ -138,12 +142,12 @@ Business owner gains a clear understanding of each job's financial performance w
 **Error Handling / Alternate Flows:**
 - If no financial data exists: Display zeros with a message indicating no financial data has been recorded
 - If job is in progress: Display an indicator that profitability is preliminary
-- If revenue is zero: Display profit margin as 'N/A' or 0%.
+- If revenue is zero: Display profit margin as 'N/A'.
 
 **Acceptance Criteria:**
 - Given a job with recorded payments of $1,000, expenses of $300, and contractor payments of $400,
   When the business owner views the job details,
-  Then the system displays revenue as $1,000 (received), Total Costs as $700, net profit as $300, and profit margin as 30% in the main summary block.
+  Then the system displays revenue as $1,000 (Received), Total Costs as $700, net profit as $300, and profit margin as 30% in the main summary block.
 
 - Given a job with recorded payments of $500 and expenses of $600 (no contractor payments),
   When the business owner views the job details,
@@ -231,10 +235,10 @@ Business owner gains a clear understanding of each job's financial performance w
 2. System retrieves comprehensive financial data for the job (via REQ-JP-02)
 3. System organizes data into report sections:
    - Job overview (client, dates, service type)
-   - Revenue breakdown (invoices, payments received)
+   - Revenue breakdown (based on payments received)
    - Expense breakdown (by category)
    - Contractor payment details
-   - Profit calculation (clearly stating basis, e.g., cash/received)
+   - Profit calculation (clearly stating calculation basis: cash/received)
 4. System formats the report for clean viewing
 5. System provides basic export options (PDF, CSV)
 
@@ -244,11 +248,11 @@ Business owner gains a clear understanding of each job's financial performance w
 **Outputs / Expected Results:**
 - Formatted profitability report containing:
   - Job identification and basic details
-  - Revenue breakdown with dates and sources
+  - Revenue breakdown with dates and sources (Received basis)
   - Itemized expense list with categorization
   - Detailed contractor payment information
   - Clear profit calculation (indicating calculation basis)
-  - Key metrics (profit margin)
+  - Key metrics (profit margin or 'N/A')
 
 **Error Handling / Alternate Flows:**
 - If offline: Notify user that reporting is unavailable offline
@@ -258,7 +262,7 @@ Business owner gains a clear understanding of each job's financial performance w
 **Acceptance Criteria:**
 - Given a completed job with full financial records,
   When the business owner requests a profitability report,
-  Then a basic report is generated showing core revenue, expenses, contractor payments, net profit calculation (indicating basis), and profit margin.
+  Then a basic report is generated showing core revenue (received), expenses, contractor payments, net profit calculation (indicating basis), and profit margin.
 
 - Given a job with partial financial records,
   When the business owner requests a profitability report,
@@ -405,7 +409,7 @@ Business owner gains a clear understanding of each job's financial performance w
 2. System displays list of jobs for selection (with search/filter capability)
 3. Business owner selects the appropriate job
 4. System creates association between revenue entry and selected job
-5. System updates job profitability calculations to include the new revenue
+5. System updates job profitability calculations to include the new revenue (based on MVP cash/received basis for payments)
 
 **Inputs:**
 - Revenue details (amount, date, type, etc.)
@@ -423,7 +427,7 @@ Business owner gains a clear understanding of each job's financial performance w
 **Acceptance Criteria:**
 - Given a new invoice creation,
   When the business owner associates it with a specific job,
-  Then the invoice is linked to that job and the job's profitability is potentially updated (depending on calculation basis - e.g., accrual).
+  Then the invoice is linked to that job.
 
 - Given a payment receipt,
   When the business owner records it and associates with a job,
@@ -554,7 +558,7 @@ Business owner gains a clear understanding of each job's financial performance w
 
 **Title:** Tax Impact on Profitability View
 
-**Description:** The system must display job profitability based on a default calculation basis (e.g., pre-tax) and provide relevant tax information (GST/QST collected/paid) separately.
+**Description:** The system must display job profitability based on a default calculation basis (e.g., pre-tax) and provide relevant tax information (GST/QST collected/paid) separately for informational context. (Note: This approach provides tax context without altering the primary profit figure displayed in the MVP, simplifying the core calculation.)
 
 **Actors:** Business Owner
 
@@ -565,17 +569,20 @@ Business owner gains a clear understanding of each job's financial performance w
 - Business profile has tax settings configured
 
 **Functional Steps (Happy Path):**
-1. Business owner views job profitability data (calculated using default MVP basis)
-2. System detects tax components in the financial data
-3. System displays the calculated profitability
-4. System separately displays key tax figures associated with the job (e.g., "GST/QST Collected: $X", "GST/QST Paid (ITCs): $Y") for informational purposes.
+1. Business owner views job profitability data.
+2. System calculates Net Profit using the default basis (e.g., Revenue Received - Expenses - Contractor Payments, without direct tax adjustments).
+3. System retrieves total GST/QST collected amounts associated with the job's revenue entries.
+4. System retrieves total GST/QST paid amounts associated with the job's expense entries (potential ITCs).
+5. System displays the calculated Net Profit (clearly labeled, e.g., "Net Profit (Pre-Tax)").
+6. System separately displays "Total GST/QST Collected: $X" and "Total GST/QST Paid (Potential ITCs): $Y".
 
 **Inputs:**
 - Job ID
 
 **Outputs / Expected Results:**
-- Job profitability calculation based on default MVP view (e.g., pre-tax)
-- Separate display of key tax figures associated with the job
+- Job profitability calculation based on default MVP view (e.g., Pre-Tax Profit)
+- Separate display of 'Total GST/QST Collected' amount
+- Separate display of 'Total GST/QST Paid (Potential ITCs)' amount
 - Clear indication of the calculation basis used for the main profit figure
 
 **Error Handling / Alternate Flows:**
@@ -586,7 +593,7 @@ Business owner gains a clear understanding of each job's financial performance w
 **Acceptance Criteria:**
 - Given a job with GST/QST collected on revenue and paid on expenses,
   When the business owner views the job profitability summary,
-  Then the system displays the net profit calculated on the default basis (e.g., pre-tax) AND separately shows the total GST/QST collected and paid figures.
+  Then the system displays the net profit calculated on the default pre-tax basis AND separately shows the total GST/QST collected and paid figures.
 
 - Given a job with tax implications,
   When viewing profitability reports or summaries,

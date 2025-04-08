@@ -32,13 +32,12 @@ Business owner gains a clear understanding of each job's financial performance w
 1. Business owner navigates to the job list view in the application
 2. Business owner selects a specific job to view its details
 3. The system displays job information including the client, service type, status, and dates
-4. The system calculates and displays a financial summary for the job, showing:
+4. The system calculates and displays a **concise financial summary** for the job, focused on quick assessment, showing:
    - Total revenue (based on recorded payments/invoices as per MVP calculation basis)
-   - Total expenses (broken down by categories)
-   - Total contractor payments (if any)
-   - Net profit calculation (Revenue - Expenses - Contractor Payments)
+   - Total Costs (Expenses + Contractor Payments)
+   - Net profit calculation (Revenue - Total Costs)
    - Profit margin percentage
-5. Business owner can view a detailed breakdown of all financial transactions related to the job
+5. Business owner can view a detailed breakdown of all individual financial transactions (revenue, expenses, contractor payments) related to the job
 6. Business owner can generate a basic profitability report for the job
 7. Business owner can return to the job list view, which displays profitability indicators for all jobs
 
@@ -48,7 +47,7 @@ Business owner gains a clear understanding of each job's financial performance w
 1. Follow steps 1-3 of the primary path
 2. The system calculates and displays a simplified financial summary showing:
    - Total revenue
-   - Total expenses
+   - Total Costs (Expenses only in this case)
    - Net profit calculation (Revenue - Expenses)
    - Profit margin percentage
 3. Continue with steps 5-7 of the primary path
@@ -102,7 +101,7 @@ Business owner gains a clear understanding of each job's financial performance w
 
 **Title:** Job Financial Summary Display
 
-**Description:** The system must calculate and display a financial summary for each job, showing revenue, expenses, contractor payments, and net profit based on recorded transactions.
+**Description:** The system must calculate and display a **concise** financial summary for each job, showing key profitability metrics based on recorded transactions. The primary goal of the summary is to provide the business owner with a quick, clear understanding of whether the job made money and identify significant profit deviations, enabling rapid assessment in the field.
 
 **Actors:** Business Owner
 
@@ -119,21 +118,22 @@ Business owner gains a clear understanding of each job's financial performance w
 4. Calculate total revenue sum (based on MVP default, e.g., payments received)
 5. Calculate total expense sum
 6. Calculate total contractor payment sum
-7. Calculate net profit (Revenue - Expenses - Contractor Payments)
-8. Calculate profit margin percentage (Net Profit / Revenue × 100%). Handle division by zero if revenue is zero (e.g., display 'N/A' or 0%).
-9. Display the financial summary prominently in the job details view
+7. Calculate **Total Costs** (Total Expenses + Total Contractor Payments)
+8. Calculate net profit (Total Revenue - Total Costs)
+9. Calculate profit margin percentage (Net Profit / Total Revenue × 100%). Handle division by zero if revenue is zero (e.g., display 'N/A' or 0%).
+10. Display the core financial summary prominently in the job details view
 
 **Inputs:**
 - Job ID
 
-**Outputs / Expected Results:**
+**Outputs / Expected Results (Core Summary Block):**
 - Total revenue amount (formatted currency, indicating basis e.g., 'Received')
-- Total expense amount (formatted currency)
-- Total contractor payments amount (formatted currency)
+- Total Costs amount (formatted currency)
 - Net profit amount (formatted currency)
 - Profit margin percentage (or N/A)
 - Visual indicator of profitability status (e.g., color coding)
-- Separate display of relevant tax totals (GST/QST collected/paid) if applicable.
+- Separate display area for relevant tax totals (GST/QST collected/paid) if applicable.
+  **(Note:** Detailed expense breakdowns by category are available via transaction list or basic report).
 
 **Error Handling / Alternate Flows:**
 - If no financial data exists: Display zeros with a message indicating no financial data has been recorded
@@ -143,7 +143,7 @@ Business owner gains a clear understanding of each job's financial performance w
 **Acceptance Criteria:**
 - Given a job with recorded payments of $1,000, expenses of $300, and contractor payments of $400,
   When the business owner views the job details,
-  Then the system displays revenue as $1,000 (received), expenses as $300, contractor payments as $400, net profit as $300, and profit margin as 30%.
+  Then the system displays revenue as $1,000 (received), Total Costs as $700, net profit as $300, and profit margin as 30% in the main summary block.
 
 - Given a job with recorded payments of $500 and expenses of $600 (no contractor payments),
   When the business owner views the job details,
@@ -288,54 +288,56 @@ Business owner gains a clear understanding of each job's financial performance w
 **Functional Steps (Happy Path):**
 1. System loads the job list view
 2. For each job, system retrieves or calculates basic profitability metrics (strategy TBD - e.g., precomputed or on-demand)
-3. System displays appropriate visual indicators based on profitability status (clearly define logic for profitable/unprofitable/break-even, e.g., profit > 0, profit < 0, profit = 0):
-   - Profitable jobs: Positive indicator (e.g., green indicator or up arrow)
-   - Unprofitable jobs: Negative indicator (e.g., red indicator or down arrow)
-   - Break-even jobs: Neutral indicator
-   - Incomplete financial data (e.g., no revenue or expenses recorded): Information needed indicator
-4. System shows profit margin or amount based on user preference setting
+3. System displays appropriate visual indicators based on defined profitability status logic (see below).
+4. System shows profit margin or amount based on user preference setting (defaulting to amount for quick insight).
 
 **Inputs:**
 - None (view initialization)
 
 **Outputs / Expected Results:**
 - List of jobs with visual profitability indicators
-- Profit amount or percentage displayed for each job (configurable)
+- Profit amount or percentage displayed for each job (configurable, default amount)
 - Sort/filter options based on profitability
 
+**Indicator Status Logic:**
+* `Profitable:` Net Profit > 0
+* `Unprofitable:` Net Profit < 0
+* `Break-even:` Net Profit = 0
+* `Information Needed:` Job status is 'Completed' AND (Total Revenue = 0 OR Total Costs = 0)
+* `Preliminary:` Job Status is 'In Progress' or 'Planned'
+
 **Error Handling / Alternate Flows:**
-- If profitability cannot be calculated (e.g., required data missing beyond just zero): Display information needed indicator
-- If job is in progress: Display preliminary indicator
-- If job has no financial data: Display appropriate status indicator (e.g., "Information needed")
+- If profitability cannot be calculated due to errors: Display an error/unknown indicator.
+- If job status determines indicator (e.g., 'Preliminary'), use that logic.
 
 **Acceptance Criteria:**
-- Given a list containing profitable and unprofitable jobs,
+- Given a list containing jobs with positive, negative, and zero net profit,
   When the business owner views the job list,
-  Then each job displays an appropriate visual indicator of its profitability status based on defined logic.
+  Then each job displays an appropriate visual indicator (Profitable, Unprofitable, Break-even) based on the defined logic.
 
-- Given a job with incomplete financial data (e.g., no revenue recorded),
+- Given a completed job with revenue recorded but no expenses or contractor payments,
   When the business owner views the job list,
-  Then that job displays an indicator showing financial information is needed.
+  Then that job displays an 'Information Needed' indicator.
 
-- Given the business owner's preference to view profit margins as percentages,
+- Given the business owner uses the default setting,
   When the business owner views the job list,
-  Then profit margins are displayed as percentages rather than absolute amounts (or N/A if applicable).
+  Then profitability is displayed as absolute amounts (e.g., +$300, -$100).
 
 **Dependencies:**
-- REQ-JP-01 (Job Financial Summary Display)
+- REQ-JP-01 (Job Financial Summary Display) - for underlying calculation logic
 
 ### REQ-JP-05: Job Expense Association
 
 **Title:** Job Expense Association
 
-**Description:** The system must enable business owners to associate expenses with specific jobs, either at the time of expense entry or afterward.
+**Description:** The system must enable business owners to associate expenses with specific jobs, either at the time of expense entry or afterward. The process of associating expenses must be optimized for speed and minimal user interaction on a mobile device.
 
 **Actors:** Business Owner
 
 **Trigger:**
-- Business owner enters a new expense
+- Business owner enters a new expense (via UC-ME)
 - Business owner updates an existing expense
-- Business owner reviews unassociated expenses
+- Business owner reviews unassociated expenses (potentially via E2 path)
 
 **Pre-conditions:**
 - User has an active account
@@ -343,11 +345,11 @@ Business owner gains a clear understanding of each job's financial performance w
 - Expense data is available
 
 **Functional Steps (Happy Path):**
-1. When entering a new expense, system provides option to associate with a job
-2. System displays list of jobs for selection (with search/filter capability)
-3. Business owner selects the appropriate job
-4. System creates association between expense and selected job
-5. System updates job profitability calculations to include the new expense
+1. When entering a new expense (or reviewing unassociated ones), system provides an efficient option to associate with a job.
+2. System displays list of jobs for selection (with effective search/filter/suggestion capability).
+3. Business owner quickly selects the appropriate job.
+4. System creates association between expense and selected job.
+5. System updates job profitability calculations to include the new expense.
 
 **Inputs:**
 - Expense details (amount, date, category, etc.)
@@ -359,25 +361,25 @@ Business owner gains a clear understanding of each job's financial performance w
 - Confirmation of successful association
 
 **Error Handling / Alternate Flows:**
-- If job list cannot be retrieved (offline): Allow expense entry without job association, flag for later association
-- If expense is associated with wrong job: Provide ability to reassign to correct job
-- For general business expenses: Allow explicitly marking as non-job specific
+- If job list cannot be retrieved (offline): Allow expense entry without job association, flag for later association using a streamlined process.
+- If expense is associated with wrong job: Provide ability to reassign to correct job easily.
+- For general business expenses: Allow explicitly marking as non-job specific quickly.
 
 **Acceptance Criteria:**
 - Given a new expense entry,
-  When the business owner associates it with a specific job,
-  Then the expense is linked to that job and the job's profitability is recalculated.
+  When the business owner associates it with a specific job using the mobile interface,
+  Then the association is completed quickly and the job's profitability is recalculated.
 
 - Given an existing expense without job association,
-  When the business owner later associates it with a job,
-  Then the expense is linked to the selected job and profitability is updated accordingly.
+  When the business owner later associates it with a job via the review screen,
+  Then the association process is efficient and profitability is updated accordingly.
 
-- Given a list of unassociated expenses,
+- Given a list of unassociated expenses displayed for review,
   When the business owner reviews them from the job details screen,
-  Then they can select relevant expenses to associate with the current job.
+  Then they can rapidly select and associate relevant expenses with the current job.
 
 **Dependencies:**
-- UC-ME (Mobile Expense Tracking)
+- UC-ME (Mobile Expense Tracking) - for initial entry workflow
 - REQ-JP-01 (Job Financial Summary Display)
 
 ### REQ-JP-06: Revenue-Job Association
@@ -595,6 +597,7 @@ Business owner gains a clear understanding of each job's financial performance w
 
 ## Mockups
 [Link to Mockups](./mockups/index.html)
+**(Note: Mockups to be revisited to align with refined MVP requirements)**
 
 ---
 
@@ -611,3 +614,4 @@ The following features and paths derived from the initial description are explic
 * **REQ-JP-06:** Complex revenue splitting across multiple jobs.
 * **REQ-JP-08:** Profitability Comparison View functional requirement.
 * **REQ-JP-10:** User-selectable toggle for different tax impact views in profitability calculation.
+* **Advanced Expense Association:** Suggestions based on date/location proximity, etc.

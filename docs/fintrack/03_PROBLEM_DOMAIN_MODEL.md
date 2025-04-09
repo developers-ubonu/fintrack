@@ -1,11 +1,11 @@
 # Problem Domain Model - FinTrack
 
 ## Metadata
-**Version:** 0.4 *(Updated for Enhanced MVP Scope v1.4/v0.4)*
-**Status:** Draft
-**Last Updated:** April 8, 2025
-**Owner:** FinTrack Project Manager
-**Reviewers:** [To be determined]
+**Version:** 0.4 *(Updated for Enhanced MVP Scope v1.4/v0.4)*.  
+**Status:** Draft.  
+**Last Updated:** April 8, 2025.  
+**Owner:** FinTrack Project Manager.  
+**Reviewers:** [To be determined].  
 
 ## Dependencies
 **Required Artifacts:**

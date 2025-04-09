@@ -1,11 +1,11 @@
 # User Needs Analysis - FinTrack
 
 ## Metadata
-**Version:** 1.5 *(Updated Use Cases for enhanced MVP Scope v1.4/v0.4)*
-**Status:** Draft
-**Last Updated:** April 8, 2025
-**Owner:** FinTrack Project Manager
-**Reviewers:** [To be determined]
+**Version:** 1.5 *(Updated Use Cases for enhanced MVP Scope v1.4/v0.4)*.  
+**Status:** Draft.  
+**Last Updated:** April 8, 2025.  
+**Owner:** FinTrack Project Manager.  
+**Reviewers:** [To be determined].  
 
 ## Purpose
 To identify and document the needs, goals, and pain points of small landscaping and related service business owners in Quebec, ensuring the FinTrack solution aligns with their financial tracking requirements and operational context. This version updates Use Cases to reflect an enhanced MVP scope focused on automation and ease of input.

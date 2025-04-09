@@ -1,11 +1,11 @@
 # Scope Definition Document - FinTrack
 
 ## Metadata
-**Version:** 0.4 *(Updated to align with MVP Feature Scope v1.4)*
-**Status:** Draft
-**Last Updated:** April 8, 2025
-**Owner:** FinTrack Project Manager
-**Reviewers:** [To be determined]
+**Version:** 0.4 *(Updated to align with MVP Feature Scope v1.4)*.  
+**Status:** Draft.  
+**Last Updated:** April 8, 2025.  
+**Owner:** FinTrack Project Manager.  
+**Reviewers:** [To be determined].  
 
 ## Dependencies
 **Required Artifacts:**

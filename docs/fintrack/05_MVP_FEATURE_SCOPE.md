@@ -1,11 +1,11 @@
 # FinTrack: Detailed MVP Feature Scope
 
 ## Document Metadata
-**Version:** 1.4 *(Updated based on "Ideal Onboarding" requirements)*. 
-**Status:** Draft. 
-**Last Updated:** April 8, 2025. 
-**Owner:** FinTrack Product Manager. 
-**Reviewers:** Technical Lead, UX Designer, Business Stakeholder. 
+**Version:** 1.4 *(Updated based on "Ideal Onboarding" requirements)*.  
+**Status:** Draft.  
+**Last Updated:** April 8, 2025.  
+**Owner:** FinTrack Product Manager.  
+**Reviewers:** Technical Lead, UX Designer, Business Stakeholder.  
 
 ## Purpose
 This document defines the detailed feature scope for the FinTrack Minimum Viable Product (MVP), establishing clear boundaries for what will and will not be included in the initial release. The scope is based on user needs analysis, interview findings, technical feasibility assessment, and the decision to incorporate key ease-of-use automation features from the outset.

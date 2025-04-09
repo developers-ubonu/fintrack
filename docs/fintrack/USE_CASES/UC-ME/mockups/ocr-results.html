@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Results - Mobile Expense Tracking</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .mockup-container {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 16px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .content {
+            padding: 16px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #555;
+        }
+        .receipt-thumbnail {
+            width: 100%;
+            height: 120px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .receipt-thumbnail img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 14px;
+            color: #555;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .input-field.uncertain {
+            border-color: #ffc107;
+            background-color: #fff8e1;
+        }
+        .confidence-indicator {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .confidence-high {
+            color: #4caf50;
+        }
+        .confidence-medium {
+            color: #ff9800;
+        }
+        .confidence-low {
+            color: #f44336;
+        }
+        .ocr-summary {
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #2e7d32;
+            line-height: 1.4;
+        }
+        .receipt-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .action-button {
+            flex: 1;
+            padding: 8px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .date-picker {
+            display: flex;
+            gap: 10px;
+        }
+        .date-part {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        .button {
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: center;
+            flex: 1;
+        }
+        .secondary-button {
+            background-color: #f1f1f1;
+            color: #333;
+            margin-right: 12px;
+        }
+        .primary-button {
+            background-color: #4CAF50;
+            color: white;
+            margin-left: 12px;
+        }
+        .navigation {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .nav-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <div class="header">
+            Verify Receipt Details
+        </div>
+        
+        <div class="content">
+            <div class="ocr-summary">
+                Successfully extracted information from receipt. Please verify and correct details if needed.
+            </div>
+            
+            <div class="receipt-thumbnail">
+                <img src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width%3D'300' height%3D'200' viewBox%3D'0 0 300 200'%3E%3Crect fill%3D'%23f0f0f0' width%3D'300' height%3D'200'%2F%3E%3Ctext fill%3D'%23999' font-family%3D'sans-serif' font-size%3D'18' x%3D'50%25' y%3D'50%25' text-anchor%3D'middle' dominant-baseline%3D'middle'%3EReceipt Image%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Receipt Thumbnail">
+            </div>
+            
+            <div class="receipt-actions">
+                <div class="action-button">Retake Photo</div>
+                <div class="action-button">View Full Image</div>
+                <div class="action-button">Adjust Crop</div>
+            </div>
+            
+            <form>
+                <div class="form-group">
+                    <label for="vendor">Vendor/Business Name</label>
+                    <input type="text" id="vendor" class="input-field" value="Home Depot">
+                    <div class="confidence-indicator confidence-high">
+                        ✓ High confidence
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <div class="date-picker">
+                        <input type="text" class="date-part" value="04" placeholder="MM">
+                        <input type="text" class="date-part" value="08" placeholder="DD">
+                        <input type="text" class="date-part" value="2025" placeholder="YYYY">
+                    </div>
+                    <div class="confidence-indicator confidence-high">
+                        ✓ High confidence
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Total Amount ($)</label>
+                    <input type="number" id="amount" class="input-field" value="179.99" step="0.01" min="0">
+                    <div class="confidence-indicator confidence-high">
+                        ✓ High confidence
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Description/Notes</label>
+                    <input type="text" id="notes" class="input-field uncertain" value="Garden materials for Brown property" placeholder="Add notes (optional)">
+                    <div class="confidence-indicator confidence-medium">
+                        ⚠️ Medium confidence - please verify
+                    </div>
+                </div>
+            </form>
+            
+            <div class="buttons-container">
+                <div class="button secondary-button">Back</div>
+                <div class="button primary-button">Continue</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="receipt-capture.html" class="nav-link">Back to Receipt Capture</a>
+        <a href="job-suggestion.html" class="nav-link">Next: Job Suggestion</a>
+    </div>
+    
+    <!-- Mockup Notes -->
+    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666;">
+        <h3>Implementation Notes:</h3>
+        <ul>
+            <li>Show confidence levels for each extracted field</li>
+            <li>Highlight uncertain fields with visual cues</li>
+            <li>Provide quick access to the original receipt image</li>
+            <li>Include options to retake or adjust the photo</li>
+            <li>Implement date picker that's easy to use on mobile</li>
+            <li>Add appropriate validation for all fields</li>
+            <li>Consider auto-population from vendor database for frequent vendors</li>
+            <li>Balance OCR confidence against user verification needs</li>
+        </ul>
+    </div>
+</body>
+</html>

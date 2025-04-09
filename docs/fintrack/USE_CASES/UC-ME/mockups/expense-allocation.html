@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Allocation - Mobile Expense Tracking</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .mockup-container {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 16px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .content {
+            padding: 16px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #555;
+        }
+        .expense-summary {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .expense-vendor {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .expense-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #555;
+        }
+        .expense-amount {
+            font-weight: 600;
+            font-size: 18px;
+            color: #333;
+            margin-top: 8px;
+        }
+        .allocation-container {
+            margin-bottom: 24px;
+        }
+        .allocation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .allocation-title {
+            font-weight: 600;
+            color: #555;
+        }
+        .allocation-amount {
+            font-weight: 600;
+            color: #4CAF50;
+        }
+        .allocation-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .allocation-job {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .allocation-percentage {
+            display: flex;
+            align-items: center;
+        }
+        .percentage-label {
+            margin-right: 8px;
+            width: 36px;
+            font-size: 14px;
+        }
+        .slider-container {
+            flex: 1;
+            position: relative;
+        }
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e0e0e0;
+            outline: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+        .allocation-amount-container {
+            display: flex;
+            align-items: center;
+            margin-top: 12px;
+        }
+        .currency-symbol {
+            margin-right: 6px;
+            color: #666;
+        }
+        .allocation-amount-input {
+            flex: 1;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            text-align: right;
+        }
+        .allocation-controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+        }
+        .control-button {
+            background: none;
+            border: none;
+            color: #2b6cb0;
+            font-size: 13px;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .add-allocation-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e8f5e9;
+            border: 1px dashed #81c784;
+            border-radius: 8px;
+            padding: 12px;
+            color: #4CAF50;
+            font-weight: 500;
+            margin-top: 12px;
+            cursor: pointer;
+        }
+        .add-icon {
+            margin-right: 8px;
+            font-size: 18px;
+            line-height: 1;
+        }
+        .category-select {
+            margin-top: 8px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            background-color: white;
+        }
+        .unallocated-banner {
+            background-color: #fff3e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #e65100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .unallocated-amount {
+            font-weight: 600;
+        }
+        .allocation-total {
+            text-align: right;
+            font-size: 14px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #ddd;
+        }
+        .total-allocated {
+            font-weight: 600;
+            color: #4CAF50;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        .button {
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: center;
+            flex: 1;
+        }
+        .secondary-button {
+            background-color: #f1f1f1;
+            color: #333;
+            margin-right: 12px;
+        }
+        .primary-button {
+            background-color: #4CAF50;
+            color: white;
+            margin-left: 12px;
+        }
+        .navigation {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .nav-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <div class="header">
+            Allocate Expense
+        </div>
+        
+        <div class="content">
+            <div class="expense-summary">
+                <div class="expense-vendor">Home Depot</div>
+                <div class="expense-details">
+                    <span>Apr 8, 2025</span>
+                    <span>Receipt #2145-7823</span>
+                </div>
+                <div class="expense-amount">$179.99</div>
+            </div>
+            
+            <div class="unallocated-banner">
+                <span>Unallocated:</span>
+                <span class="unallocated-amount">$0.00</span>
+            </div>
+            
+            <div class="allocation-container">
+                <div class="allocation-header">
+                    <div class="allocation-title">Allocations</div>
+                    <div class="allocation-amount">$179.99 allocated</div>
+                </div>
+                
+                <div class="allocation-item">
+                    <div class="allocation-job">Brown Backyard Renovation</div>
+                    
+                    <div class="allocation-percentage">
+                        <span class="percentage-label">100%</span>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="100" value="100" class="slider">
+                        </div>
+                    </div>
+                    
+                    <div class="allocation-amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" class="allocation-amount-input" value="179.99" step="0.01" min="0">
+                    </div>
+                    
+                    <select class="category-select">
+                        <option selected>Materials - Landscape</option>
+                        <option>Materials - Building</option>
+                        <option>Equipment Rental</option>
+                        <option>Tools & Hardware</option>
+                        <option>Subcontractor Payment</option>
+                        <option>Other</option>
+                    </select>
+                    
+                    <div class="allocation-controls">
+                        <button class="control-button">Add Notes</button>
+                        <button class="control-button">Remove</button>
+                    </div>
+                </div>
+                
+                <div class="add-allocation-button">
+                    <span class="add-icon">+</span>
+                    <span>Add Another Allocation</span>
+                </div>
+                
+                <div class="allocation-total">
+                    Total: <span class="total-allocated">$179.99</span>
+                </div>
+            </div>
+            
+            <div class="buttons-container">
+                <div class="button secondary-button">Back</div>
+                <div class="button primary-button">Continue</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="job-suggestion.html" class="nav-link">Back to Job Suggestion</a>
+        <a href="tax-details.html" class="nav-link">Next: Tax Details</a>
+    </div>
+    
+    <!-- Mockup Notes -->
+    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666;">
+        <h3>Implementation Notes:</h3>
+        <ul>
+            <li>Support percentage-based allocation for multi-job expenses</li>
+            <li>Automatically calculate amounts when percentage sliders are adjusted</li>
+            <li>Show clear visualization of allocation status and remaining amount</li>
+            <li>Allow direct input of dollar amounts with automatic percentage adjustment</li>
+            <li>Include category selection specific to the selected job</li>
+            <li>Support adding notes or attachments to individual allocations</li>
+            <li>Provide clear total allocated amount with validation</li>
+            <li>Ensure easy addition/removal of allocation items</li>
+            <li>Consider preset allocation templates for recurring expense patterns</li>
+        </ul>
+    </div>
+</body>
+</html>

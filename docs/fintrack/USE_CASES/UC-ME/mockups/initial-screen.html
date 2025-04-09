@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initial Screen - Mobile Expense Tracking</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .mockup-container {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 16px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .content {
+            padding: 16px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #333;
+        }
+        .option-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .option-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-card:hover {
+            background-color: #f5f5f5;
+            border-color: #4CAF50;
+        }
+        .option-card.recommended {
+            background-color: #e8f5e9;
+            border-color: #4CAF50;
+        }
+        .option-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .option-details {
+            flex: 1;
+        }
+        .option-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .option-description {
+            font-size: 14px;
+            color: #555;
+        }
+        .option-badge {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        .connectivity-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #f5f5f5;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+        .status-online {
+            color: #4CAF50;
+        }
+        .status-offline {
+            color: #f44336;
+            display: none; /* Hidden by default */
+        }
+        .recent-expenses {
+            margin-top: 24px;
+        }
+        .expense-card {
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .expense-details {
+            font-size: 14px;
+        }
+        .expense-vendor {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .expense-meta {
+            color: #777;
+            font-size: 12px;
+        }
+        .expense-amount {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .navigation {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .nav-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <div class="header">
+            Add Expense
+        </div>
+        
+        <div class="content">
+            <div class="connectivity-status">
+                <div class="status-online">✓ Online: All features available</div>
+                <div class="status-offline">⚠️ Offline: OCR and suggestions unavailable</div>
+            </div>
+            
+            <div class="section-title">Choose an option</div>
+            
+            <div class="option-container">
+                <div class="option-card recommended">
+                    <div class="option-icon">📷</div>
+                    <div class="option-details">
+                        <div class="option-title">Scan Receipt <span class="option-badge">RECOMMENDED</span></div>
+                        <div class="option-description">Take a photo and let the app extract details automatically</div>
+                    </div>
+                </div>
+                
+                <div class="option-card">
+                    <div class="option-icon">📝</div>
+                    <div class="option-details">
+                        <div class="option-title">Manual Entry</div>
+                        <div class="option-description">Enter expense details manually</div>
+                    </div>
+                </div>
+                
+                <div class="option-card">
+                    <div class="option-icon">🔄</div>
+                    <div class="option-details">
+                        <div class="option-title">Recurring Expense</div>
+                        <div class="option-description">Create or select a recurring expense template</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-expenses">
+                <div class="section-title">Recent Expenses</div>
+                
+                <div class="expense-card">
+                    <div class="expense-details">
+                        <div class="expense-vendor">Home Depot</div>
+                        <div class="expense-meta">Today • Materials • Brown Backyard</div>
+                    </div>
+                    <div class="expense-amount">$179.99</div>
+                </div>
+                
+                <div class="expense-card">
+                    <div class="expense-details">
+                        <div class="expense-vendor">Shell</div>
+                        <div class="expense-meta">Yesterday • Fuel • General</div>
+                    </div>
+                    <div class="expense-amount">$64.23</div>
+                </div>
+                
+                <div class="expense-card">
+                    <div class="expense-details">
+                        <div class="expense-vendor">Garden World</div>
+                        <div class="expense-meta">Apr 5 • Plants & Seeds • Multiple Jobs</div>
+                    </div>
+                    <div class="expense-amount">$241.75</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-link">Overview</a>
+        <a href="receipt-capture.html" class="nav-link">Next: Receipt Capture</a>
+    </div>
+    
+    <!-- Mockup Notes -->
+    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666;">
+        <h3>Implementation Notes:</h3>
+        <ul>
+            <li>Clear connectivity status indicator to manage user expectations</li>
+            <li>Highlight recommended option for efficient workflow</li>
+            <li>Provide alternative entry methods for different scenarios</li>
+            <li>Show recent expenses for context and quick access</li>
+            <li>Consider adding quick filters for recent expenses</li>
+            <li>Make sure offline mode is clearly communicated</li>
+            <li>Ensure responsive layout works on all device sizes</li>
+        </ul>
+    </div>
+</body>
+</html>

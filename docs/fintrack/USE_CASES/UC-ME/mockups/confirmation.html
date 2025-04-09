@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation - Mobile Expense Tracking</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .mockup-container {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 16px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .content {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .success-icon {
+            background-color: #e8f5e9;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .checkmark {
+            color: #4CAF50;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .success-message {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .expense-summary {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .expense-summary p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #4CAF50;
+            margin-bottom: 24px;
+        }
+        .sync-status.pending {
+            color: #ff9800;
+        }
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .action-button {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #f5f5f5;
+            transition: all 0.2s ease;
+        }
+        .action-button:hover {
+            background-color: #e3f2fd;
+            border-color: #90caf9;
+        }
+        .action-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .action-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .primary-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+        }
+        .navigation {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .nav-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+        .offline-indicator {
+            display: none; /* Hidden by default */
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 8px 12px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #856404;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <div class="header">
+            Expense Saved
+        </div>
+        
+        <div class="content">
+            <div class="success-icon">
+                <span class="checkmark">✓</span>
+            </div>
+            
+            <div class="success-message">
+                Expense Successfully Saved
+            </div>
+            
+            <!-- This would only show when offline -->
+            <div class="offline-indicator">
+                You're offline. This expense will sync when connectivity returns.
+            </div>
+            
+            <div class="expense-summary">
+                <p><strong>Vendor:</strong> Home Depot</p>
+                <p><strong>Date:</strong> April 8, 2025</p>
+                <p><strong>Amount:</strong> $179.99</p>
+                <p><strong>Category:</strong> Materials</p>
+                <p><strong>Jobs:</strong> Brown Backyard (70%), Johnson Lawn (30%)</p>
+            </div>
+            
+            <div class="sync-status">
+                <span>✓</span> Synchronized to cloud
+            </div>
+            
+            <div class="actions">
+                <div class="action-button">
+                    <div class="action-icon">📋</div>
+                    <div class="action-label">View Details</div>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">✏️</div>
+                    <div class="action-label">Edit Expense</div>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">📱</div>
+                    <div class="action-label">View Job</div>
+                </div>
+                
+                <div class="action-button">
+                    <div class="action-icon">📊</div>
+                    <div class="action-label">View Reports</div>
+                </div>
+            </div>
+            
+            <button class="primary-button">Add Another Expense</button>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="tax-details.html" class="nav-link">Back to Tax Details</a>
+        <a href="index.html" class="nav-link">Back to Overview</a>
+    </div>
+    
+    <!-- Mockup Notes -->
+    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666;">
+        <h3>Implementation Notes:</h3>
+        <ul>
+            <li>Clear visual confirmation that expense was saved successfully</li>
+            <li>Show expense summary for quick verification</li>
+            <li>Display sync status - would show pending icon if saved offline</li>
+            <li>Provide clear offline indicator when applicable</li>
+            <li>Offer contextual next actions for efficient workflow</li>
+            <li>Prominent "Add Another Expense" option for batch entry</li>
+            <li>Consider animation for success checkmark for visual feedback</li>
+            <li>Include quick links to related jobs for context</li>
+        </ul>
+    </div>
+</body>
+</html>

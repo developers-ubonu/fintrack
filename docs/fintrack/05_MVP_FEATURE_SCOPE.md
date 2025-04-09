@@ -1,7 +1,7 @@
 # FinTrack: Detailed MVP Feature Scope
 
 ## Document Metadata
-**Version:** 1.4 *(Updated based on "Ideal Onboarding" requirements)*
+**Version:** 1.4 *(Updated based on "Ideal Onboarding" requirements)* 
 **Status:** Draft
 **Last Updated:** April 8, 2025
 **Owner:** FinTrack Product Manager

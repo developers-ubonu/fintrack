@@ -141,6 +141,39 @@
             width: 100%;
             box-sizing: border-box;
         }
+        .context-nav {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .context-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+        .context-button.primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .context-secondary-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .context-button.secondary {
+            background-color: #f5f5f5;
+            color: #333;
+            font-size: 14px;
+            padding: 12px;
+        }
+        .context-button:hover {
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -175,35 +208,15 @@
                 <span>✓</span> Synchronized to cloud
             </div>
             
-            <div class="actions">
-                <div class="action-button">
-                    <div class="action-icon">📋</div>
-                    <div class="action-label">View Details</div>
-                </div>
-                
-                <div class="action-button">
-                    <div class="action-icon">✏️</div>
-                    <div class="action-label">Edit Expense</div>
-                </div>
-                
-                <div class="action-button">
-                    <div class="action-icon">📱</div>
-                    <div class="action-label">View Job</div>
-                </div>
-                
-                <div class="action-button">
-                    <div class="action-icon">📊</div>
-                    <div class="action-label">View Reports</div>
+            <!-- Contextual Navigation Options -->
+            <div class="context-nav">
+                <button class="context-button primary">Add Another Expense</button>
+                <div class="context-secondary-actions">
+                    <button class="context-button secondary">Return to Dashboard</button>
+                    <button class="context-button secondary">View All Expenses</button>
                 </div>
             </div>
-            
-            <button class="primary-button">Add Another Expense</button>
         </div>
-    </div>
-    
-    <div class="navigation">
-        <a href="tax-details.html" class="nav-link">Back to Tax Details</a>
-        <a href="index.html" class="nav-link">Back to Overview</a>
     </div>
     
     <!-- Mockup Notes -->
@@ -214,10 +227,10 @@
             <li>Show expense summary for quick verification</li>
             <li>Display sync status - would show pending icon if saved offline</li>
             <li>Provide clear offline indicator when applicable</li>
-            <li>Offer contextual next actions for efficient workflow</li>
+            <li>Offer contextual navigation options based on user's entry path and workflow</li>
             <li>Prominent "Add Another Expense" option for batch entry</li>
-            <li>Consider animation for success checkmark for visual feedback</li>
-            <li>Include quick links to related jobs for context</li>
+            <li>Secondary options to return to dashboard or view all expenses, depending on context</li>
+            <li>Could dynamically show additional contextual actions based on most relevant next steps</li>
         </ul>
     </div>
 </body>

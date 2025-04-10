@@ -144,6 +144,32 @@
             color: #2b6cb0;
             text-decoration: none;
         }
+        .expense-card.draft {
+            background-color: #f5f5f5;
+        }
+        .draft-badge {
+            background-color: #ff9800;
+            color: white;
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .see-all-link {
+            text-align: right;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+        .see-all-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .see-all-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -187,7 +213,7 @@
             </div>
             
             <div class="recent-expenses">
-                <div class="section-title">Recent Expenses</div>
+                <div class="section-title">Recent & Pending Expenses</div>
                 
                 <div class="expense-card">
                     <div class="expense-details">
@@ -205,12 +231,24 @@
                     <div class="expense-amount">$64.23</div>
                 </div>
                 
+                <div class="expense-card draft">
+                    <div class="expense-details">
+                        <div class="expense-vendor"><span class="draft-badge">Draft</span> Receipt #4928</div>
+                        <div class="expense-meta">Apr 7 • Pending Processing</div>
+                    </div>
+                    <div class="expense-amount">--.--.--</div>
+                </div>
+                
                 <div class="expense-card">
                     <div class="expense-details">
                         <div class="expense-vendor">Garden World</div>
                         <div class="expense-meta">Apr 5 • Plants & Seeds • Multiple Jobs</div>
                     </div>
                     <div class="expense-amount">$241.75</div>
+                </div>
+                
+                <div class="see-all-link">
+                    <a href="#">See All Expenses →</a>
                 </div>
             </div>
         </div>

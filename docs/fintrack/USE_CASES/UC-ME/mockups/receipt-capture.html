@@ -190,6 +190,65 @@
             color: #2b6cb0;
             text-decoration: none;
         }
+        .photo-review {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: black;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+        .review-header {
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 10px;
+        }
+        .review-image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .review-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .review-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 0 10px 10px;
+        }
+        .review-action {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .review-action.retake {
+            background-color: #616161;
+            color: white;
+        }
+        .review-action.save-draft {
+            background-color: #ff9800;
+            color: white;
+        }
+        .review-action.process-now {
+            background-color: #4CAF50;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -220,6 +279,19 @@
                 </div>
             </div>
             
+            <!-- Photo Review Interface (normally hidden, would show after capture) -->
+            <div class="photo-review" style="display: none;">
+                <div class="review-header">Review Receipt Photo</div>
+                <div class="review-image-container">
+                    <img class="review-image" src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width%3D'500' height%3D'700' viewBox%3D'0 0 500 700'%3E%3Crect fill%3D'%23555' width%3D'500' height%3D'700'%2F%3E%3Ctext fill%3D'%23eee' font-family%3D'sans-serif' font-size%3D'24' x%3D'50%25' y%3D'50%25' text-anchor%3D'middle' dominant-baseline%3D'middle'%3EReceipt Photo%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Receipt Photo">
+                </div>
+                <div class="review-actions">
+                    <button class="review-action retake">Retake</button>
+                    <button class="review-action save-draft">Save Draft</button>
+                    <button class="review-action process-now">Process Now</button>
+                </div>
+            </div>
+            
             <div class="ocr-loading">
                 <div class="loading-spinner"></div>
                 <div class="loading-text">Processing Receipt</div>
@@ -243,6 +315,8 @@
             <li>Include flash control for low-light environments</li>
             <li>Provide gallery access for selecting existing receipt images</li>
             <li>Show clear loading state during OCR processing</li>
+            <li>Include "Save Draft" option for the Deferred Processing workflow</li>
+            <li>After capture, offer options to retake, save as draft, or process immediately</li>
             <li>Consider auto-capture when receipt is properly positioned and in focus</li>
             <li>Ensure camera permissions are properly requested</li>
             <li>Handle device orientation changes appropriately</li>

@@ -1,7 +1,7 @@
 # User Needs Analysis - FinTrack
 
 ## Metadata
-**Version:** 1.6 *(Updated Use Cases for enhanced MVP Scope v1.4/v0.4 & Core/Conditional Prioritization)*.
+**Version:** 1.7 *(Added UC-EL: View and Manage Expense List)*.
 **Status:** Draft.
 **Last Updated:** April 9, 2025.
 **Owner:** FinTrack Project Manager.
@@ -13,11 +13,11 @@
 2.  ***Integrated Conditional Design:*** While core workflow is primary, design core components anticipating logical integration points for optional conditional features (like taxes) to ensure smooth user transitions and efficient development.
 
 ## Purpose
-To identify and document the needs, goals, and pain points of small landscaping and related service business owners in Quebec, ensuring the FinTrack solution aligns with their **core** financial tracking requirements and operational context, while allowing for **optional, conditional tax features**. This version updates Use Cases to reflect an enhanced MVP scope focused on automation and ease of input, framed within the core/conditional structure.
+To identify and document the needs, goals, and pain points of small landscaping and related service business owners in Quebec, ensuring the FinTrack solution aligns with their **core** financial tracking requirements and operational context, while allowing for **optional, conditional tax features**. This version updates Use Cases to reflect an enhanced MVP scope focused on automation and ease of input, framed within the core/conditional structure, and formally defines the interaction with the expense list.
 
 ## Success Criteria
 - [ ] Clear identification of primary user personas for small service businesses
-- [x] Comprehensive use cases that reflect real-world financial tracking scenarios, **prioritizing core workflows and clearly marking conditional tax steps**
+- [x] Comprehensive use cases that reflect real-world financial tracking scenarios, **prioritizing core workflows and clearly marking conditional tax steps**, including viewing/managing expenses.
 - [x] User journey maps highlighting key touchpoints and pain points in financial management, **focusing on core tasks and indicating where conditional tax features might apply**
 
 ## Content Requirements
@@ -29,6 +29,7 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - **Minimize time spent on financial administration (via core automation)**
     - Create professional invoices quickly **(core)**
     - Keep business and personal finances separate **(core)**
+    - Easily view and find past or **Draft Expenses (core)**.
   - **Conditional Goals (If Tax Features Enabled/Applicable):**
     - Maintain clear records for tax compliance (GST/QST)
   - **Core Pain Points:**
@@ -36,6 +37,7 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - Manual financial record-keeping feels tedious and error-prone
     - Inability to determine which jobs are most profitable
     - Limited connectivity potentially hindering advanced automation features
+    - Difficulty finding specific past expenses.
   - **Conditional Pain Points (If Tax Features Enabled/Applicable):**
     - Confusion about tax obligations and input tax credits
   - **Context:**
@@ -53,13 +55,14 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - **Easily track and allocate payments to Contractors (core)**
     - Generate reports for business planning **(core reporting)**
     - Manage cash flow during seasonal fluctuations **(core)**
+    - Quickly access and filter expense history **(core)**.
   - **Conditional Goals (Based on Business Status):**
     - Prepare accurate tax documentation
   - **Core Pain Points:**
     - Complexity of tracking multiple jobs simultaneously
     - Difficulty associating expenses with specific jobs **without significant manual effort**
     - Accurately tracking and **allocating** costs associated with employees vs. **Contractors**.
-    - Limited visibility into overall business financial health
+    - Limited visibility into overall business financial health and specific expense details.
   - **Conditional Pain Points (If Tax Features Enabled):**
     - Cumbersome process for GST/QST reporting
   - **Context:** (Same as Solo Operator)
@@ -71,12 +74,14 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - Look professional to clients **(core invoicing)**
     - Track profitability to make informed business decisions **(core)**
     - Set up a foundation for potential business growth (including potentially engaging **Contractors**) **(core)**
+    - Understand how expenses are organized and tracked **(core)**.
   - **Conditional Goals (If considering registration):**
     * Understand basic tax obligations and thresholds (GST/QST) **with guidance**
   - **Core Pain Points:**
     - Uncertainty about which expenses are deductible **and how to track them easily (core expense tracking)**
     - Overwhelmed by complex accounting software; **needs extreme simplicity (core UI)**
     - Need to appear professional despite being new
+    - Finding specific expense records later seems daunting.
   - **Conditional Pain Points (If considering registration):**
     - Confusion and anxiety about Quebec tax rules and thresholds
     - Lack of affordable guidance on business formalization
@@ -87,23 +92,24 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - Looking to build recurring client base
     - Plans to operate mostly via cash and e-transfers initially
 
-### 2. Use Cases *(Revised for Core Workflow + Conditional Tax Steps)*
+### 2. Use Cases *(Revised for Core Workflow + Conditional Tax Steps, Added UC-EL)*
 
 - **Use Case Name (UC-JP):** Job Profitability Tracking
-  - **Description:** Track all income and expenses (including **Contractor** payments) related to a specific service job to determine profitability. *(Leverages automated inputs from UC-ME/UC-CP for core efficiency).*
+  - **Description:** Track all income and expenses (including **Contractor** payments) related to a specific service job to determine profitability. *(Leverages automated inputs from UC-ME/UC-CP for core efficiency and views data potentially summarized via UC-EL or reports).*
   - **Actors:** Business owner
   - **Core Steps:**
     1.  Create a new job in the system with client details and job specifications. (See UC-JM)
     2.  Record all income/payments for the job. (See UC-CT or related invoicing payment tracking via UC-IG)
-    3.  Track all direct expenses (materials, fuel, etc.) and associate them with the job **via automated or manual core input**. (See UC-ME)
+    3.  Track all direct expenses (materials, fuel, etc.) and associate/allocate them with the job **via automated or manual core input**. (See UC-ME)
     4.  Track payments made to **Contractors** and associate/allocate them with the job. (See UC-CP)
-    5.  Generate a core profitability report that shows revenue, expenses (incl. **Contractor** payments), and net profit.
+    5.  Generate or view a core profitability report for the job that shows revenue, expenses (incl. **Contractor** payments), and net profit.
   - **Expected Core Outcome:** Clear understanding of each job's financial performance with accurate profit calculation, **achieved with reduced manual effort**.
 
-- **Use Case Name (UC-ME):** Mobile Expense Tracking *(Revised for Core + Conditional Tax)*
-  - **Description:** Quickly log business expenses (materials, fuel, etc.) while in the field using core automation features (OCR, suggestions) and associate them with specific jobs, allowing for easy splitting of shared costs. Optionally track tax details if the conditional tax module is enabled.
+- **Use Case Name (UC-ME):** Mobile Expense Tracking *(Revised for Core + Conditional Tax + Deferred Processing)*
+  - **Description:** Quickly log business expenses (materials, fuel, etc.) while in the field using core automation features (OCR, suggestions) and associate them with specific jobs, allowing for easy splitting of shared costs. Supports **Deferred Processing** to save drafts for later completion. Optionally track tax details if the conditional tax module is enabled.
   - **Actors:** Business owner
-  - **Core Steps:**
+  * **Trigger:** User selects "Add Expense" function OR selects a **Draft Expense** from the expense list (UC-EL) to resume processing.
+  - **Core Steps (Primary Path):**
     1.  Open mobile app and select "Add Expense" function.
     2.  **Snap photo of receipt.**
     3.  **App performs OCR** to attempt extraction of Vendor, Date, Amount -> User quickly confirms or edits extracted data. *(Note: OCR may require connectivity).*
@@ -116,8 +122,13 @@ To identify and document the needs, goals, and pain points of small landscaping 
     9.  **App attempts OCR for GST/QST amounts** -> User confirms or manually enters tax details.
     10. System flags potential Input Tax Credits (ITCs) based on category and tax presence.
   - **Core Steps Continued:**
-    11. Save the expense (basic data capture works offline, syncs when online; advanced features may require sync).
-  - **Expected Outcome:** Accurate expense records captured in real-time **with significantly reduced manual effort** via core automation; shared costs are easily allocated; basic capture works offline. **Optional tax details captured if relevant/enabled.**
+    11. Save the expense (basic data capture works offline, syncs when online; advanced features may require sync). Status becomes 'pending_sync' or 'synced'.
+  - **Alternate Path: Deferred Processing**
+    1. User initiates expense capture (e.g., photo) (Step 1-2 of Primary Path).
+    2. User opts to defer completion after initial capture/OCR attempt (e.g., selects a "Save Draft" option).
+    3. System saves available information (e.g., image link) as an expense record with "Draft" status.
+    4. User exits the expense capture flow. *(User later selects this Draft Expense via UC-EL to resume)*.
+  - **Expected Outcome:** Accurate expense records captured in real-time **with significantly reduced manual effort** via core automation; shared costs are easily allocated; **Draft Expenses** saved for later completion; basic capture works offline. **Optional tax details captured if relevant/enabled.**
 
 - **Use Case Name (UC-CoM):** Contractor Management
   - **Description:** Add, view, search, and manage basic contractor information necessary for tracking payments. (Core Functionality)
@@ -132,7 +143,7 @@ To identify and document the needs, goals, and pain points of small landscaping 
     7.  Use search/filter function to find specific contractors in the list.
   - **Expected Outcome:** An organized list of contractors is maintained, enabling efficient selection for payment tracking (UC-CP) and job costing (UC-JP).
 
-- **Use Case Name (UC-CP):** Contractor Payment Tracking *(No conditional elements)*
+- **Use Case Name (UC-CP):** Contractor Payment Tracking
   - **Description:** Record payments made to independent **Contractors**, leveraging smart suggestions and simple allocation tools to associate payments accurately with specific jobs. (Core Functionality)
   - **Actors:** Business owner
   - **Steps:**
@@ -247,6 +258,21 @@ To identify and document the needs, goals, and pain points of small landscaping 
     8.  Log out of the application.
   - **Expected Outcome:** User can securely access their account, manage basic profile details, set language preference, **control the activation of conditional tax features via their registration status**, and maintain account security.
 
+- **Use Case Name (UC-EL):** View and Manage Expense List *(New Use Case)*
+  - **Description:** View, search, filter, and select expenses from the main expense list, including accessing **Draft Expenses** for completion. (Core Functionality)
+  - **Actors:** Business owner, accountant (potential secondary reviewer)
+  - **Trigger:** User navigates to the main expense list view (e.g., from dashboard, menu, or via navigation element in UC-ME).
+  - **Steps:**
+    1. System displays a list of expenses, potentially showing recent or **Draft Expenses** first.
+    2. User applies filters if desired (e.g., by status: "Draft", "Completed"; by date range; by category; by job).
+    3. User enters keywords into a search bar to find specific expenses (e.g., by vendor name, description).
+    4. System updates the list based on applied filters and search terms.
+    5. User scrolls through the filtered/searched list.
+    6. User selects a specific expense from the list.
+    7. If a completed expense is selected, system displays its details.
+    8. If a **Draft Expense** is selected, system navigates the user to the appropriate step in the UC-ME workflow to resume processing (e.g., data verification).
+  - **Expected Outcome:** User can efficiently find specific past expenses or pending **Draft Expenses**; user can get an overview of expenses based on filters; user can initiate the resumption of a **Draft Expense**.
+
 ### 3. User Journey Maps *(Refined for Core/Conditional)*
 
 - **Journey Name:** New Job Financial Lifecycle *(Focus on Core, Tax Conditional)*
@@ -264,6 +290,7 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - Client communications for quotes and invoices
     - Banking integration for payment tracking (Future)
     - **Contractor** payment records (simplified entry/allocation)
+    - Expense List interface (UC-EL) for reviewing job costs.
     - **(Conditional Touchpoint):** Tax settings/reports view.
   - **Core Pain Points:**
     - Disconnection between initial quote and actual expenses (incl. **Contractor** costs)
@@ -283,44 +310,48 @@ To identify and document the needs, goals, and pain points of small landscaping 
 - **Journey Name:** Offline Expense Tracking *(Focus on Core)*
   - **Stages:**
     1.  Purchase materials/supplies at vendor
-    2.  Log core expense offline in the field (**manual entry + photo capture**; access to cached client/job data for basic tagging)
+    2.  Log core expense offline in the field (**manual entry + photo capture saving as Draft Expense**; access to cached client/job data for basic tagging)
     3.  Tag expense to a specific job/client (manual selection from cached list)
-    4.  Add receipt documentation (photo stored locally)
+    4.  Add receipt documentation (photo stored locally with draft)
     5.  Sync data when back online
-    6.  **(Online Stage - Core):** OCR processing occurs for Vendor/Date/Amount, smart suggestions may appear for refinement/confirmation.
-    7.  **(Online Stage - Conditional, if enabled):** OCR attempts tax details capture.
-    8.  Verify expense in financial reports
+    6.  **(Online Stage - Core):** OCR processing occurs for draft, smart suggestions may appear for refinement/confirmation when user resumes draft via UC-EL.
+    7.  **(Online Stage - Conditional, if enabled):** OCR attempts tax details capture when draft is resumed.
+    8.  Verify expense in financial reports (after completion)
   - **Touchpoints:**
-    - Mobile app (**offline mode: manual entry + photo capture**)
+    - Mobile app (**offline mode: manual entry + photo capture -> Draft Expense**)
     - Receipt capture functionality (offline storage)
     - Job/client selection interface (with offline data)
     - Sync notification system
-    - **(Online Touchpoint - Core):** OCR results review (Vendor/Date/Amount), Smart suggestion review
-    - **(Online Touchpoint - Conditional):** OCR tax results review
+    - Expense List interface (UC-EL) to find and resume draft.
+    - **(Online Touchpoint - Core):** OCR results review (Vendor/Date/Amount), Smart suggestion review within UC-ME flow.
+    - **(Online Touchpoint - Conditional):** OCR tax results review within UC-ME flow.
   - **Pain Points:**
     - Limited connectivity preventing real-time OCR/suggestions
     - Need for basic client/job info while offline
     - Risk of data loss if device is damaged before sync
     - Duplicate entries if sync fails (needs robust handling)
+    - Forgetting to complete **Draft Expenses**.
   - **Opportunities:**
     - Enable offline access to essential client/job info for tagging **(core)**
-    - Create quick-entry functionality for common expenses (manual offline) **(core)**
+    - Create quick-entry functionality saving as **Draft Expense (core)**
     - Implement reliable sync mechanism **(core)**
-    - **Provide clear UI indicating which features require connectivity**
+    * **Provide clear UI indicating which features require connectivity**
+    * Make resuming **Draft Expenses** intuitive via UC-EL and potentially the initial screen preview.
 
 - **Journey Name:** Tax Reporting Cycle *(Conditional Journey)*
   - **Stages:** *(This journey only applies if Tax Features are Enabled)*
     1.  Ongoing recording of sales with appropriate GST/QST
     2.  Tracking of expenses **with GST/QST data potentially auto-captured via OCR (UC-ME)**, identifying potential input tax credits
     3.  Periodic (monthly/quarterly) review of tax status
-    4.  Tax period filing preparation
-    5.  Report generation for accountant (leveraging captured data)
+    4.  Tax period filing preparation (reviewing data potentially via UC-EL)
+    5.  Report generation for accountant (leveraging captured data via UC-TR)
     6.  Actual filing with tax authorities
   - **Touchpoints:**
-    - Expense entry with **auto-captured/verified** tax classification
-    - Invoice creation with tax calculations
+    - Expense entry with **auto-captured/verified** tax classification (UC-ME)
+    - Invoice creation with tax calculations (UC-IG)
+    - Expense List interface (UC-EL) for reviewing tax details on expenses.
     - Tax summary dashboard (showing key totals: Sales, GST/QST Collected, ITCs, Net Payable/Refundable)
-    - Export functionality for reports
+    - Export functionality for reports (UC-TR)
   - **Pain Points:**
     - Complexity of GST/QST rules and applications
     * **Manual effort to find/enter tax amounts from receipts reduced**
@@ -336,11 +367,11 @@ To identify and document the needs, goals, and pain points of small landscaping 
 - **Journey Name:** Informal-to-Formal Transition Journey *(Highlighting Activation)*
   - **Stages:**
     1.  Initial cash-based income tracking with minimal structure (**core** - via UC-CT)
-    2.  Gradual addition of expense categories and basic profit tracking (**core - simplified by UC-ME automation**)
+    2.  Gradual addition of expense categories and basic profit tracking (**core - simplified by UC-ME automation and ability to save Draft Expenses**)
     3.  Exploration of tax rules and obligations (GST/QST thresholds via Tax Guidance - UC-TG)
-    4.  Decision to formalize business operations -> **Activate Tax Features via "Tax Registration Status" setting.**
+    4.  Decision to formalize business operations -> **Activate Tax Features via "Tax Registration Status" setting.** (UC-AM)
     5.  Implementation of invoicing and formal payment tracking (clients and potentially **Contractors**) (**core functionality enhanced by now-active conditional tax calculations**)
-    6.  First tax filing as a registered business (using UC-TR, leveraging captured data)
+    6.  First tax filing as a registered business (using UC-TR, leveraging captured data potentially reviewed via UC-EL)
   - **Touchpoints:**
     - Simple weekly profit dashboard (**core** - UC-WS)
     - Tax information resources (UC-TG)
@@ -348,11 +379,12 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - Client management transition (**core** - UC-CM)
     - **Contractor** management and **simplified** payment tracking (**core** - UC-CoM, UC-CP)
     - First GST/QST reporting (**conditional** - UC-TR - data capture streamlined)
-    - **Account setting for Tax Registration Status (Activation Trigger)**
+    - Expense List interface (UC-EL) for managing records.
+    - **Account setting for Tax Registration Status (Activation Trigger via UC-AM)**
   - **Pain Points:**
     - Anxiety around tax compliance and registration
     - Uncertainty about when/how to register for GST/QST
-    - Need for historical data during formalization
+    - Need for historical data during formalization (accessible via UC-EL)
     - Added complexity of formal financial tracking **(reduced by core automation, tax features only appear when activated)**
     - Potential client relationship changes (receipt issuance, tax charging)
     - Potential need to formalize agreements with **Contractors**.
@@ -365,10 +397,10 @@ To identify and document the needs, goals, and pain points of small landscaping 
 
 - **Journey Name:** Seasonal Transition Journey
   - **Stages:**
-    1.  End-of-season financial review for landscaping
+    1.  End-of-season financial review for landscaping (using reports, potentially UC-EL)
     2.  Preparation for winter operations (snow removal)
     3.  Adaptation to different billing models (per-visit vs monthly/per-storm)
-    4.  Equipment and material expense tracking changes
+    4.  Equipment and material expense tracking changes (via UC-ME)
     5.  Managing different client expectations and service models
     6.  End-of-winter financial analysis and landscaping preparation
   - **Touchpoints:**
@@ -377,6 +409,7 @@ To identify and document the needs, goals, and pain points of small landscaping 
     - Seasonal profit comparison views (Reporting Feature)
     - Equipment and material inventory changes (Expense Tracking - UC-ME)
     - Storm event tracking (snow operations) (Future Feature)
+    - Expense List interface (UC-EL) for filtering by season/service type.
   - **Pain Points:**
     - Different profitability metrics between service types
     - Transitioning clients between service models
@@ -386,40 +419,42 @@ To identify and document the needs, goals, and pain points of small landscaping 
   - **Opportunities:**
     - Provide unified financial view across service types
     - Support different billing/contract models by season (Future)
-    - Enable service-specific reporting and analysis
+    - Enable service-specific reporting and analysis (via filtering in UC-EL/reports)
     - Simplify year-round financial planning
 
-## Validation Methods
+### 4. Validation Methods
 - [ ] User interviews via video calls or phone calls with 5-7 service business owners in the Greater Montreal area
   - Mix of English, French, and bilingual participants
   - Focus on solo operators and small businesses (engaging 1-10 employees/**Contractors**)
-  - Key Interview Topics: *(Add validation for conditional approach)*
+  - Key Interview Topics: *(Add validation for conditional approach & UC-EL)*
     1.  Current Software Usage: [...]
     2.  Price Sensitivity: [...]
     3.  Seasonal Operations: [...]
     4.  **Reaction to Automation:** Gauge interest/acceptance of OCR, smart suggestions, potential GPS use, permissions **for core tasks**.
     5.  **Offline Needs:** Clarify expectations for offline availability of automated features **vs. core manual tasks**.
     6.  **Conditional Tax Needs:** Understand when/if users need tax features and validate the proposed activation trigger approach.
+    7.  **Expense List Interaction:** Understand how users currently find/review past expenses and validate the proposed features for UC-EL (search, filter by status/date etc.).
 - [ ] Surveys distributed to broader service business community in Quebec
 - [ ] Observational studies of current financial management processes (if feasible)
-- [ ] Usability testing of prototypes **incorporating core automated workflows (OCR, suggestions, splitting) and testing the conditional activation of tax features.**
+- [ ] Usability testing of prototypes **incorporating core automated workflows (OCR, suggestions, splitting), testing the conditional activation of tax features, and testing the interactions defined in UC-EL (including resuming Draft Expenses).**
 
-## Assumptions *(Revised for Core/Conditional)*
+### 5. Assumptions *(Revised for Core/Conditional & UC-EL)*
 - [x] Target users are comfortable using smartphones for basic business tasks **and granting typical app permissions (camera, potentially location/calendar for core features)**
 - [x] Most target users have limited formal accounting knowledge
 - [x] GST/QST tracking is a significant pain point for Quebec-based businesses **that are registered or need to be**.
 - [x] Users prioritize **simplicity, speed, and effortless input for core tasks** over comprehensive accounting features
-- [x] **Manual offline** functionality for core tasks is essential; **advanced automation features requiring connectivity are acceptable if core manual offline alternatives exist**.
+- [x] **Manual offline** functionality for core tasks (like saving **Draft Expenses**) is essential; **advanced automation features requiring connectivity are acceptable if core manual offline alternatives exist**.
 - [x] Bilingual support (English/French) is necessary for the Quebec market
 - [x] Users engaging external help often intend a **Contractor** relationship, even if informal initially.
-- [x] **Users will accept ~80-90% OCR accuracy with easy correction.** *(Added from Scope)*
-- [x] **Users will grant context permissions (GPS/Calendar) if value is clear for core suggestions.** *(Added from Scope)*
+- [x] **Users will accept ~80-90% OCR accuracy with easy correction.**
+- [x] **Users will grant context permissions (GPS/Calendar) if value is clear for core suggestions.**
 - [x] Users will understand and accept the concept of enabling conditional tax features based on their registration status.
+- [x] Users need and will utilize search and filter capabilities (including filtering by 'Draft' status) within the main expense list (UC-EL).
 
-## Risks *(Revised for Core/Conditional)*
+### 6. Risks *(Revised for Core/Conditional & UC-EL)*
 - [ ] Risk 1: **Offline limitations of automation features (OCR, suggestions) may cause user confusion or frustration.**
   - Impact: Negative user experience if expectations aren't managed.
-  - Mitigation: Clear UI indicators of online/offline status and feature availability; robust manual offline core workflows; user education.
+  - Mitigation: Clear UI indicators of online/offline status and feature availability; robust manual offline core workflows (saving Drafts); user education.
 - [ ] Risk 2: Incorrect tax calculations (or **incorrect OCR capture of tax info**) **within the conditional module** could lead to compliance issues **for users who enable it**.
   - Impact: Legal/financial repercussions for users; loss of trust.
   - Mitigation: Consult with tax experts; rigorously test tax calculation & OCR functions; allow easy user correction of OCR data; clear disclaimers.
@@ -441,21 +476,24 @@ To identify and document the needs, goals, and pain points of small landscaping 
 - [ ] **Risk 8:** **Increased Core MVP scope (due to automation) impacts timeline/budget, potentially delaying conditional module availability.**
     - Impact: Delayed launch of full feature set, requires more resources for core.
     - Mitigation: Re-evaluate priorities/timeline/budget for core-first; clear stakeholder communication about phased rollout.
+- [ ] **Risk 9:** The expense list (UC-EL) interface becomes cluttered or difficult to navigate if filtering/search options are not well-designed, especially on mobile.
+    - Impact: Users struggle to find specific or Draft expenses, negating efficiency gains.
+    - Mitigation: Prioritize intuitive filter/search design for mobile; conduct usability testing specifically on UC-EL.
 
-## Budget Allocation
+### 7. Budget Allocation
 - [ ] Reserve a portion of the budget for marketing and onboarding post-MVP
   - **Marketing:** Landing page, targeted ads (e.g., Facebook for Quebec service businesses), **highlighting core automation benefits**.
-  - **Onboarding:** Bilingual help guides and tutorial videos aligned with key **Core** Use Cases, **explaining automated workflows, offline limitations, and how/when to activate conditional tax features**.
+  - **Onboarding:** Bilingual help guides and tutorial videos aligned with key **Core** Use Cases (including UC-ME with **Deferred Processing**) and **UC-EL**, **explaining automated workflows, offline limitations, and how/when to activate conditional tax features**.
   - **Initial budget:** Approximately 15-20% of total project budget (may need review if core MVP scope increases cost significantly).
 
-## Review Notes
+### 8. Review Notes
 - [ ] Review 1
   - Reviewer:
   - Date:
   - Comments:
   - Status:
 
-## Change Log
+### 9. Change Log
 | Date          | Version | Changed By   | Changes Made                                                                                                                                                                                                                                |
 | :------------ | :------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | April 4, 2025 | 1.0     | FinTrack PM  | Created initial User Needs Analysis                                                                                                        |
@@ -464,20 +502,21 @@ To identify and document the needs, goals, and pain points of small landscaping 
 | April 8, 2025 | 1.3     | Gemini Model | Added **UC-CoM (Contractor Management)** based on dependency analysis. Updated UC-CP step 1 to reference UC-CoM. Updated Next Steps. |
 | April 8, 2025 | 1.4     | Gemini Model | Refined steps in UC-ME, UC-CP, UC-TR, UC-IG, UC-CT, UC-TG, UC-JM based on detailed analysis for clarity and alignment with MVP features/interview feedback. Updated version number. Added Risk related to Tax Guidance interpretation. |
 | April 8, 2025 | 1.5     | Gemini Model | **Major Revision:** Updated Use Cases (esp. UC-ME, UC-CP) and related sections (Personas, Journeys, Assumptions, Risks) to incorporate automation features (OCR, Smart Suggestions, Splitting) aligning with enhanced MVP Scope (v1.4/v0.4). |
-| **April 9, 2025** | **1.6** | **Gemini Model** | **Refactored based on core vs. conditional prioritization instructions:** Added Guiding Principles; Refined Use Cases (UC-JP, UC-ME, UC-TR, UC-IG, UC-TG, UC-AM) for core flow + conditional steps/context; Applied conditional language and emphasis in Personas, Journeys, Assumptions, Risks. |
+| April 9, 2025 | 1.6     | Gemini Model | **Refactored based on core vs. conditional prioritization instructions:** Added Guiding Principles; Refined Use Cases (UC-JP, UC-ME, UC-TR, UC-IG, UC-TG, UC-AM) for core flow + conditional steps/context; Applied conditional language and emphasis in Personas, Journeys, Assumptions, Risks. |
+| **April 9, 2025** | **1.7** | **Gemini Model** | **Added UC-EL: View and Manage Expense List.** Updated UC-ME triggers and descriptions to reflect Draft Expenses and Deferred Processing. Ensured terminology consistency ("Draft Expense", "Deferred Processing"). Updated related sections (Personas, Journeys, Risks, Validation Methods, Assumptions) to reflect the existence and purpose of UC-EL. Updated version number. |
 
 
-## Sign-off
+### 10. Sign-off
 - [ ] Technical Review
 - [ ] Business Review
 - [ ] Stakeholder Review
 - [ ] Final Approval
 
-## Next Steps **(Updated)**
+### 11. Next Steps **(Updated)**
 - [x] Validate user personas through stakeholder interviews
-- [x] Schedule user interviews with service business owners **(incl. questions on conditional tax needs)**
+- [x] Schedule user interviews with service business owners **(incl. questions on conditional tax needs & UC-EL interactions)**
 - [x] **Re-evaluate technical feasibility of core automated features (OCR, suggestions) and offline limitations.**
 - [x] Define detailed **enhanced Core MVP** feature scope based on this analysis (Reflected in related docs)
-- [ ] Create prototype screens for key **core automated** use cases **and conditional activation flow**.
-- [ ] **Begin decomposition of enhanced Core MVP Use Cases into detailed Functional Requirements with Acceptance Criteria.**
+- [ ] Create prototype screens for key **core automated** use cases (UC-ME), **the expense list (UC-EL)**, and the conditional activation flow (UC-AM).
+- [ ] **Begin decomposition of enhanced Core MVP Use Cases (including UC-EL) into detailed Functional Requirements with Acceptance Criteria.**
 - [ ] **Plan detailed requirements for Conditional Tax Module for later phase.**

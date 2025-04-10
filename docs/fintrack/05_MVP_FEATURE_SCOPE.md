@@ -1,7 +1,7 @@
 # FinTrack: Detailed MVP Feature Scope
 
 ## Document Metadata
-**Version:** 1.5 *(Updated based on Core/Conditional Prioritization)*.
+**Version:** 1.6 *(Updated for Standardized Terminology)*.
 **Status:** Draft.
 **Last Updated:** April 9, 2025.
 **Owner:** FinTrack Product Manager.
@@ -15,7 +15,7 @@
 ## Purpose
 This document defines the detailed feature scope for the FinTrack Minimum Viable Product (MVP), establishing clear boundaries for what will and will not be included in the initial release. The scope prioritizes the **Core MVP Workflow** while defining the **Conditional Tax Module** features activated by user choice. The scope is based on user needs analysis, interview findings, technical feasibility assessment, and the decision to incorporate key ease-of-use automation features within the core framework from the outset.
 
-## MVP Guiding Principles *(Revised Emphasis)*
+## MVP Guiding Principles
 
 The following principles guide our MVP scope decisions:
 
@@ -73,12 +73,13 @@ These features constitute the standalone, always-available functionality providi
 
 * **Receipt Capture with Automated Data Extraction (OCR - Core Data):** Capture receipt images via camera, with the system attempting to automatically extract key **core** details (Vendor, Date, Amount). (Note: Basic OCR, user confirms/edits).
 * **Manual Expense Entry:** Option for quick manual entry if no receipt or OCR fails.
+* **Deferred Processing Support:** Ability to save a captured receipt image as a **Draft Expense** for later completion of details (verification, allocation, categorization).
 * **Expense Categorization:** Organize expenses by type (Fuel, Materials, Rentals, Contractor Payments, etc., from predefined list).
 * **Context-Aware Job Suggestions:** App suggests likely job associations based on context (e.g., location, calendar, recent activity). User confirms or selects manually.
 * **Simple Expense Splitting UI:** Intuitive interface (e.g., sliders, simple amount entry) to allocate a single expense (esp. consumables, contractor pay) across multiple selected jobs.
 * **Mark as General Expense:** Easily tag expenses not related to a specific job.
-* Offline expense entry capability (**core manual data**, photo capture, basic job selection from cache) with sync. *(Note: OCR/Smart Suggestions may require connectivity)*.
-* Expense listing with search and filter.
+* Offline expense entry capability (**core manual data**, photo capture, basic job selection from cache, saving as **Draft Expense**) with sync. *(Note: OCR/Smart Suggestions may require connectivity)*.
+* Expense listing with search and filter (including ability to filter/view **Draft Expenses**).
 * Basic expense reports (by category, by job, by date range - **core data**).
 
 #### 5. Invoice Management (Core)
@@ -110,7 +111,7 @@ These features constitute the standalone, always-available functionality providi
 
 * Job profitability report (**core basis**)
 * Income by client/job report (**core basis**)
-* Expenses by category report (**core data**)
+* Expenses by category report (**core data**, includes completed expenses, not drafts)
 * Basic cash flow report (**core basis**)
 * Weekly profit summary view (**core basis**)
 * Current month vs. previous month comparison (**core basis**)
@@ -118,9 +119,9 @@ These features constitute the standalone, always-available functionality providi
 
 #### 8. Offline Functionality (Core Focus)
 
-* Offline **core** expense entry (manual data + photo capture)
+* Offline **core** expense entry (manual data + photo capture, saving as **Draft Expense**)
 * Offline access to client/job list (read-only, for basic association)
-* Data synchronization when connectivity is restored
+* Data synchronization when connectivity is restored (including **Draft Expenses** needing processing)
 * Sync status indicators
 * Conflict resolution (simple "newest wins" approach)
 * Automatic sync attempts when connectivity detected
@@ -130,7 +131,7 @@ These features constitute the standalone, always-available functionality providi
 
 * Data backup and restore capabilities
 * Basic data import (clients, CSV format)
-* Data export (**core** expenses, invoices, clients, contractors)
+* Data export (**core** expenses [completed], invoices, clients, contractors)
 * Storage usage monitoring
 * Receipt image compression options
 
@@ -139,9 +140,10 @@ These features constitute the standalone, always-available functionality providi
 * Mobile-optimized responsive design
 * Bilingual interface (English and French)
 * Quick-access buttons for common **core** tasks (**esp. expense logging**)
+* Interface for accessing and resuming **Draft Expenses**.
 * Dark/light mode toggle
 * Simplified navigation focused on **core** tasks
-* Basic onboarding guide (**updated to reflect new core automated workflows**)
+* Basic onboarding guide (**updated to reflect new core automated workflows & Deferred Processing**)
 * Accessibility considerations (WCAG 2.1 AA compliance)
 * **Intuitive UI for core expense splitting/allocation**
 
@@ -162,7 +164,7 @@ These features are activated only when the user sets their "Tax Registration Sta
 
 #### 13. Expense Tracking (Conditional Enhancement)
 
-* **Tax Detail Capture on Expenses:** Capture/track GST/QST paid on expenses (via OCR enhancement or manual input) **when tax features are enabled**. Enable Input Tax Credit (ITC) identification support.
+* **Tax Detail Capture on Expenses:** Capture/track GST/QST paid on expenses (via OCR enhancement or manual input) **when tax features are enabled and expense is processed (not Draft)**. Enable Input Tax Credit (ITC) identification support.
 
 ### **C. Features Not Included in MVP (Core or Conditional)**
 
@@ -175,11 +177,11 @@ These features are activated only when the user sets their "Tax Registration Sta
 * **Expense Tracking:** *Advanced* OCR validation/line items, Recurring expenses, Mileage tracking, Per diems, Approvals, Multiple receipts/expense, Custom categories, Advanced reports, Bank feed import.
 * **Financial Reporting:** Custom report builder, Advanced analytics, Seasonal trend analysis, Benchmarking, Advanced filtering, Balance sheet/P&L, Dashboard customization, Profit margin by job type, Forecasting/budgeting.
 * **Tax Features:** Auto-filing, Advanced planning, Complex scenarios, Multiple jurisdictions, Tax payment tracking, Accountant portal, Tax prep software integration.
-* **Offline Functionality:** *Complex* offline operations (OCR, suggestions, conditional features), Offline creation/editing (beyond core expense), Offline reporting.
+* **Offline Functionality:** *Complex* offline operations (OCR, suggestions, conditional features), Offline creation/editing (beyond core expense draft), Offline reporting.
 * **Data Utilities:** Advanced migration, Third-party backup integration, Custom retention, Archiving.
 * **UI/Experience:** Advanced UI customization, Keyboard shortcuts, Power user features, Custom dashboard, Advanced help, Voice input.
 
-## Priority Features for Initial Development *(Revised Phasing for Core First)*
+## Priority Features for Initial Development
 
 Based on user needs emphasizing effortless core input and core profitability, the following feature development sequence is recommended, delivering the **Core MVP** first, followed by the **Conditional Tax Module**.
 
@@ -188,7 +190,7 @@ Based on user needs emphasizing effortless core input and core profitability, th
 2.  Basic client management (Add, Edit, View)
 3.  Core **expense tracking framework** with receipt **photo capture**
 4.  **OCR Implementation (Basic Core Data)** for key receipt data
-5.  Offline storage architecture & basic sync mechanism
+5.  Offline storage architecture & basic sync mechanism (supporting saving **Draft Expenses**)
 
 ### Phase 2: Core Job Context & Linking
 1.  Job management and tracking (including offline list access)
@@ -201,13 +203,14 @@ Based on user needs emphasizing effortless core input and core profitability, th
 1.  **Simple Splitting UI** implementation (for expenses & contractor pay)
 2.  Job profitability calculation logic (**core basis**)
 3.  Weekly financial summary view (**core basis**)
-4.  *Design/Prep:* Define data points needed for conditional tax module integration (e.g., tax fields in expense/invoice).
-5.  Job list profitability indicators (**core basis**)
+4.  Interface for accessing and resuming **Draft Expenses**.
+5.  *Design/Prep:* Define data points needed for conditional tax module integration (e.g., tax fields in expense/invoice).
+6.  Job list profitability indicators (**core basis**)
 
 ### Phase 4: Core Invoicing, Reporting & Refinement
 1.  Core Invoice generation (**no tax initially**)
 2.  Email sending capability
-3.  Core financial reports (Job Profitability - core basis)
+3.  Core financial reports (Job Profitability - core basis, Expense lists including **Drafts**)
 4.  Data Utilities (export core data functionality)
 5.  UI refinements, localization, performance optimization, offline robustness improvements.
 
@@ -221,7 +224,7 @@ Based on user needs emphasizing effortless core input and core profitability, th
 
 *(Note: This phasing explicitly validates the core automated workflow before building the conditional tax features.)*
 
-## Technical Implementation Notes *(Revised for Core/Conditional)*
+## Technical Implementation Notes
 
 ### Platform Approach
 * Progressive Web App (PWA) architecture
@@ -230,14 +233,14 @@ Based on user needs emphasizing effortless core input and core profitability, th
 
 ### Data Storage Strategy
 * Client/Job/Contractor Data: IndexedDB for structured data (read-only offline for Client/Job)
-* Expense Data: IndexedDB with timestamped entries for sync; potentially store OCR confidence scores. **Tax fields populated only if module enabled.**
+* Expense Data: IndexedDB with timestamped entries for sync; includes status field (e.g., 'draft', 'synced'); potentially store OCR confidence scores. **Tax fields populated only if module enabled.**
 * Receipt Images: Cache API with compression before storage.
 * Sync Status: Queue maintained in IndexedDB.
 * Context Data: Strategy for caching recent locations/calendar info for offline core suggestions (TBD).
 * **Conditional Data:** Tax-related fields in core entities (Expense, Invoice) may be null/unused if module is inactive. TaxInfo entity linked only if active.
 
 ### Sync Mechanism
-* Queue-based synchronization with timestamps **for core data**.
+* Queue-based synchronization with timestamps **for core data, including Draft Expenses**.
 * Basic conflict resolution using "newest wins" approach.
 * Clear status indicators for sync state.
 * Handle potential sync issues if OCR occurs server-side after initial offline capture. Sync logic needs awareness of conditional module status.
@@ -249,30 +252,31 @@ Based on user needs emphasizing effortless core input and core profitability, th
 
 ### Performance Targets (Core Focus)
 * Initial load time: < 3 seconds on 4G connection.
-* Offline core expense entry (manual/photo): < 1 second response time.
+* Offline core expense entry (manual/photo capture of **Draft Expense**): < 1 second response time.
 * Receipt image capture and storage: < 3 seconds.
 * **Core OCR processing time (target): < 5-10 seconds (clarify if sync/background process).**
 * Sync operation: Background process with status indicator.
 
-## Success Criteria for MVP *(Revised for Core Focus)*
+## Success Criteria for MVP
 
 The **Core MVP** will be considered successful if it meets the following criteria:
 
-1.  **User Adoption:** Initial user base of at least 50 active landscaping businesses within 3 months of launch, with positive feedback on **core ease of input**.
+1.  **User Adoption:** Initial user base of at least 50 active landscaping businesses within 3 months of launch, with positive feedback on **core ease of input and Deferred Processing workflow**.
 2.  **Core Functionality:** Users can successfully:
     * Capture receipts via photo with >80% accuracy on **core** fields via OCR (target).
     * Quickly associate/split expenses to jobs using core smart suggestions and simple UI.
-    * Track core expenses offline (manual/photo capture, basic association).
+    * Track core expenses offline (manual/photo capture, saving as **Draft Expense**, basic association).
+    * Resume and complete **Draft Expenses**.
     * Add and manage basic client and contractor information.
     * Track payments made to contractors, including splitting costs.
     * Generate core invoices (without tax) with correct details.
     * View basic core profitability reports.
     * Access the system bilingually (English/French).
 3.  **Technical Performance (Core):**
-    * 99% successful sync rate for core data.
+    * 99% successful sync rate for core data (including drafts).
     * < 1% of users reporting core data loss.
     * Average app rating > 4.2 (out of 5), reflecting improved core ease of use.
-    * < 5% of users requiring support for basic core expense logging functions.
+    * < 5% of users requiring support for basic core expense logging functions (including resuming drafts).
 4.  **Business Metrics (Core):**
     * Users report spending at least **40%** less time on core expense administration.
     * Positive user feedback validating the "effortless core input" value proposition.
@@ -316,7 +320,7 @@ While not part of the MVP, the following features are planned for subsequent rel
 | UX Designer          |      |           |      |
 | Business Stakeholder |      |           |      |
 
-## Appendix: Feature Prioritization Matrix *(Revised for Core/Conditional)*
+## Appendix: Feature Prioritization Matrix
 
 *(Note: Priority score is a combination of the four factors, with 1 being highest priority. This matrix reflects prioritization for the initial **Core MVP** delivery, with conditional features deferred).*
 
@@ -327,25 +331,27 @@ While not part of the MVP, the following features are planned for subsequent rel
 | **Simple Expense Splitting UI** | Medium         | High       | Medium                      | Low    | **3** | Core                     |
 | Expense Tracking Core & Capture   | High           | High       | Medium                      | Medium | **4** | Core                     |
 | Job Profitability Calculation     | High           | High       | Medium                      | Low    | **5** | Core                     |
-| Offline Expense Entry (Core)      | High           | High       | High                        | Medium | **6** | Core                     |
-| Invoice Management (Core)         | High           | Medium     | Low                         | Low    | **7** | Core                     |
-| Contractor Payment Tracking       | Medium         | High       | Low                         | Low    | **8** | Core                     |
-| Client Management                 | Medium         | Medium     | Low                         | Low    | **9** | Core                     |
-| Weekly Financial Summary          | Medium         | High       | Low                         | Low    | **10** | Core                     |
-| Contractor Management (Basic)     | Medium         | High       | Low                         | Low    | **11** | Core                     |
-| Account Settings & Profile        | Medium         | Low        | Low                         | Low    | **12** | Core                     |
-| Data Utilities (Export Core)      | Low            | Medium     | Low                         | Low    | **13** | Core                     |
-| UI Language Toggle                | Medium         | High       | Low                         | Low    | **14** | Core                     |
+| Offline Expense Entry (Core/Draft)| High           | High       | High                        | Medium | **6** | Core                     |
+| **Draft Expense Access/Resume UI**| Medium         | High       | Low                         | Low    | **7** | Core                     |
+| Invoice Management (Core)         | High           | Medium     | Low                         | Low    | **8** | Core                     |
+| Contractor Payment Tracking       | Medium         | High       | Low                         | Low    | **9** | Core                     |
+| Client Management                 | Medium         | Medium     | Low                         | Low    | **10** | Core                     |
+| Weekly Financial Summary          | Medium         | High       | Low                         | Low    | **11** | Core                     |
+| Contractor Management (Basic)     | Medium         | High       | Low                         | Low    | **12** | Core                     |
+| Account Settings & Profile        | Medium         | Low        | Low                         | Low    | **13** | Core                     |
+| Data Utilities (Export Core)      | Low            | Medium     | Low                         | Low    | **14** | Core                     |
+| UI Language Toggle                | Medium         | High       | Low                         | Low    | **15** | Core                     |
+| Expense Listing (inc. Drafts)     | Medium         | High       | Low                         | Low    | **16** | Core                     |
 | --- Conditional Features ---      | ---            | ---        | ---                         | ---    | ---                       | ---                      |
 | Tax Features (Reporting/Guidance) | Medium         | High       | Medium                      | High   | **Deferred** | Conditional              |
 | Tax Calculation on Invoices       | Medium         | High       | Medium                      | Medium | **Deferred** | Conditional              |
 | Tax Detail Capture (Expenses)     | Medium         | High       | Medium                      | Medium | **Deferred** | Conditional              |
 
-## Change Log
-| Date          | Version | Changed By   | Changes Made                                                                                                                                                                                                                                 |
-| :------------ | :------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ...           | ...     | ...          | ...                                                                                                                                                                                                                                          |
-| April 8, 2025 | 1.4     | Gemini Model | Major revision: Incorporated "Ideal Onboarding" features (OCR, Smart Suggestions, Easy Splitting) into MVP scope based on stakeholder feedback. Updated Principles, Feature Scope (Expense/Contractor Mgmt), Phasing, Technical Notes, Success Criteria, Prioritization Matrix. Acknowledged increased complexity and potential offline limitations for new features. |
-| **April 9, 2025** | **1.5** | **Gemini Model** | **Refactored based on core vs. conditional prioritization instructions:** Added Guiding Principles; Restructured Feature Categories/Scope Definition (Sec 2-11) for Core vs. Conditional; Explicitly separated Conditional Tax Module; Applied conditional language; Adjusted Phasing (Sec 12), Success Criteria (Sec 13), Prioritization Matrix (Appendix). Ensured full document output. |
 
-*** Gemini Model | Major revision: Incorporated "Ideal Onboarding" features (OCR, Smart Suggestions, Easy Splitting) into MVP scope based on stakeholder feedback. Updated Principles, Feature Scope (Expense/Contractor Mgmt), Phasing, Technical Notes, Success Criteria, Prioritization Matrix. Acknowledged increased complexity and potential offline limitations for new features. |
+## Change Log
+| Date             | Version | Changed By   | Changes Made                                                                                                                                                                                                                                 |
+| :--------------- | :------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ...              | ...     | ...          | ...                                                                                                                                                                                                                                          |
+| April 8, 2025    | 1.4     | Gemini Model | Major revision: Incorporated "Ideal Onboarding" features (OCR, Smart Suggestions, Easy Splitting) into MVP scope based on stakeholder feedback. Updated Principles, Feature Scope (Expense/Contractor Mgmt), Phasing, Technical Notes, Success Criteria, Prioritization Matrix. Acknowledged increased complexity and potential offline limitations for new features. |
+| April 9, 2025    | 1.5     | Gemini Model | **Refactored based on core vs. conditional prioritization instructions:** Added Guiding Principles; Restructured Feature Categories/Scope Definition (Sec 2-11) for Core vs. Conditional; Explicitly separated Conditional Tax Module; Applied conditional language; Adjusted Phasing (Sec 12), Success Criteria (Sec 13), Prioritization Matrix (Appendix). Ensured full document output. |
+| **April 9, 2025** | **1.6** | **Gemini Model** | **Updated for Standardized Terminology:** Replaced various terms related to incomplete expenses with "Draft Expense" and the workflow with "Deferred Processing" for consistency. Added specific mention of "Draft Expense Access/Resume UI" and filtering for drafts in listings. Updated version number. |

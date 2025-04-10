@@ -1,7 +1,7 @@
 # Problem Domain Model - FinTrack
 
 ## Metadata
-**Version:** 0.5 *(Updated for Enhanced MVP Scope v1.4/v0.4 & Core/Conditional Prioritization)*.
+**Version:** 0.6 *(Updated Glossary for Standardized Terminology)*.
 **Status:** Draft.
 **Last Updated:** April 9, 2025.
 **Owner:** FinTrack Project Manager.
@@ -24,7 +24,7 @@
 2.  ***Integrated Conditional Design:*** While core workflow is primary, design core components anticipating logical integration points for optional conditional features (like taxes) to ensure smooth user transitions and efficient development.
 
 ## Purpose
-This document establishes a clear, shared understanding of the FinTrack problem domain concepts, relationships, and business rules governing financial tracking for small service businesses (initially focusing on landscaping/lawn care) in Quebec, **incorporating automated data capture and allocation concepts within the core workflow, and representing tax-related concepts as optional/conditional**. It creates a common vocabulary for all project stakeholders and serves as the foundation for technical design decisions.
+This document establishes a clear, shared understanding of the FinTrack problem domain concepts, relationships, and business rules governing financial tracking for small service businesses (initially focusing on landscaping/lawn care) in Quebec, incorporating automated data capture and allocation concepts within the core workflow, and representing tax-related concepts as optional/conditional. It creates a common vocabulary for all project stakeholders and serves as the foundation for technical design decisions.
 
 ## Success Criteria
 - [x] All key **core** domain concepts are identified and clearly defined.
@@ -51,33 +51,34 @@ This document establishes a clear, shared understanding of the FinTrack problem 
 
 ## Content
 
-### 1. Domain Glossary *(Minor Refinements for Core/Conditional)*
+### 1. Domain Glossary
 
 | Term | Definition | Notes |
 |------|------------|-------|
+| Allocation | The process of distributing the cost of a single Expense or Contractor Payment across multiple Jobs. | Crucial **core** concept for accurate job costing of shared resources (e.g., fuel, bulk materials, contractor time). |
 | Business Owner | An individual who owns and operates a small service business in Quebec. | May be a solo operator or manage employees and/or contractors. |
 | Client | A person or business entity that contracts the service business to perform services. | May be one-time or recurring, have different payment methods. **Optional:** May require GST/QST on invoices if tax features enabled. |
-| Job | A specific instance of service work performed for a client. | The fundamental unit for tracking **core** profitability; includes materials, labor, contractor costs, and other expenses. |
-| Service | A type of work provided by the business (e.g., lawn mowing, gardening, snow removal, cleaning). | Businesses may offer multiple service types with different seasonal patterns and billing models. |
-| Expense | Money spent by the business for materials, equipment, fuel, subcontracting, or other operational costs. | May be associated with specific jobs (potentially split/allocated) or general overhead. **Input may be automated via core OCR.** Payments to Contractors result in expenses but are primarily tracked via the Contractor entity relationship. **Optional:** May include GST/QST details if tax features enabled. |
-| Receipt | Document showing proof of purchase for an expense. | Critical for **core** expense tracking and job costing. **Can be captured via photo, potentially enabling automated data extraction (core OCR).** **Optional:** Used for tax deductions if tax features enabled. |
-| Income | Money received from clients for services performed. | May be received via cash, e-transfer, check, or other methods. **Core** component of profitability. |
-| Invoice | A formal document requesting payment for services rendered. | **Core** feature for requesting payment. **Optional:** May require GST/QST calculation if tax features enabled. |
-| GST/QST | Goods and Services Tax / Quebec Sales Tax that registered businesses must collect. | **Conditional:** Only relevant if business is registered and tax features are enabled. Thresholds apply. **Tax amounts on expenses may be auto-captured via OCR if enabled.** |
-| Profit | Income minus **allocated** expenses (including **allocated** contractor payments), calculated at the job level or business level. | Key **core** metric for business success and decision-making. |
 | Contract | Formal agreement between business and client or business and contractor specifying services and payment terms. | May be per-visit, project-based, monthly, or seasonal for clients. Defines terms for contractors. **Core** concept for managing relationships. |
-| **Contractor** | An individual or business engaged by the Business Owner to perform specific services, typically on a non-employee basis (independent contractor or subcontractor). | Distinct **core** entity to track involvement, payments, and potentially future interactions. Payments made require allocation to jobs. |
-| Seasonal Business | Business operation that changes significantly between seasons. | Many businesses offer different services (e.g., landscaping vs. snow removal) with different models. Affects **core** operations. |
+| Contractor | An individual or business engaged by the Business Owner to perform specific services, typically on a non-employee basis (independent contractor or subcontractor). | Distinct **core** entity to track involvement, payments, and potentially future interactions. Payments made require allocation to jobs. |
+| **Deferred Processing** | **A workflow allowing a user to quickly capture initial expense information (e.g., a receipt image) and save it as a Draft Expense, postponing the detailed data entry, verification, and allocation steps for later completion.** | New definition added. |
+| **Draft Expense** | **An expense record that has been initiated (e.g., by capturing a receipt image) but has not yet had all required information (verification, allocation, categorization) completed by the user. It is saved in a temporary state ('draft' status) for later completion.** | New definition added. |
+| Expense | Money spent by the business for materials, equipment, fuel, subcontracting, or other operational costs. | May be associated with specific jobs (potentially split/allocated) or general overhead. **Input may be automated via core OCR.** Payments to Contractors result in expenses but are primarily tracked via the Contractor entity relationship. **Optional:** May include GST/QST details if tax features enabled. |
+| GST/QST | Goods and Services Tax / Quebec Sales Tax that registered businesses must collect. | **Conditional:** Only relevant if business is registered and tax features are enabled. Thresholds apply. **Tax amounts on expenses may be auto-captured via OCR if enabled.** |
+| Income | Money received from clients for services performed. | May be received via cash, e-transfer, check, or other methods. **Core** component of profitability. |
 | Input Tax Credit (ITC) | GST/QST paid on business expenses that can be claimed back from tax authorities. | **Conditional:** Important for tax compliance and profitability calculations *if tax features are enabled*. **Identification potentially aided by OCR if enabled.** |
-| Tax Threshold | Revenue level (currently $30,000 CAD) at which GST/QST registration becomes mandatory in Quebec. | **Conditional:** Important consideration for informal/growing businesses deciding whether to enable tax features. |
+| Invoice | A formal document requesting payment for services rendered. | **Core** feature for requesting payment. **Optional:** May require GST/QST calculation if tax features enabled. |
+| Job | A specific instance of service work performed for a client. | The fundamental unit for tracking **core** profitability; includes materials, labor, contractor costs, and other expenses. |
+| OCR (Optical Character Recognition) | Technology used to automatically extract text data (vendor, date, amount; **optionally taxes**) from receipt images. | Key enabler for effortless **core** expense input. |
+| Profit | Income minus **allocated** expenses (including **allocated** contractor payments), calculated at the job level or business level. | Key **core** metric for business success and decision-making. |
+| Receipt | Document showing proof of purchase for an expense. | Critical for **core** expense tracking and job costing. **Can be captured via photo, potentially enabling automated data extraction (core OCR).** **Optional:** Used for tax deductions if tax features enabled. |
+| Seasonal Business | Business operation that changes significantly between seasons. | Many businesses offer different services (e.g., landscaping vs. snow removal) with different models. Affects **core** operations. |
+| Service | A type of work provided by the business (e.g., lawn mowing, gardening, snow removal, cleaning). | Businesses may offer multiple service types with different seasonal patterns and billing models. |
+| Smart Suggestion | Context-aware recommendations provided by the app (e.g., suggesting which job an expense belongs to based on location/calendar). | Aims to reduce manual selection effort for **core** allocation tasks. |
 | Tax Guidance | Information or links provided within the application regarding tax obligations (e.g., thresholds, common deductions). | **Conditional:** Intended to inform, not replace professional advice. May include user acknowledgements. Accessed only if relevant/enabled. |
-| **Allocation** | The process of distributing the cost of a single Expense or Contractor Payment across multiple Jobs. | Crucial **core** concept for accurate job costing of shared resources (e.g., fuel, bulk materials, contractor time). |
-| **OCR (Optical Character Recognition)** | Technology used to automatically extract text data (vendor, date, amount; **optionally taxes**) from receipt images. | Key enabler for effortless **core** expense input. |
-| **Smart Suggestion** | Context-aware recommendations provided by the app (e.g., suggesting which job an expense belongs to based on location/calendar). | Aims to reduce manual selection effort for **core** allocation tasks. |
-| **Tax Registration Status** | A setting within the Business entity indicating whether the business is registered for GST/QST. | **This acts as the primary activation trigger for conditional tax features.** |
+| Tax Registration Status | A setting within the Business entity indicating whether the business is registered for GST/QST. | **This acts as the primary activation trigger for conditional tax features.** |
+| Tax Threshold | Revenue level (currently $30,000 CAD) at which GST/QST registration becomes mandatory in Quebec. | **Conditional:** Important consideration for informal/growing businesses deciding whether to enable tax features. |
 
-
-### 2. Conceptual Data Model *(Revised for Conditional TaxInfo)*
+### 2. Conceptual Data Model
 
 #### 2.1 Domain Entities
 
@@ -87,7 +88,7 @@ This document establishes a clear, shared understanding of the FinTrack problem 
 | Client | Customer who receives services. | Name, Address, Contact Info, Client Type (One-time/Recurring), Payment Preference, **[Optional] Default Tax Applicability (if tax enabled)** | Has Jobs, Contracts (Client Contracts), Invoices |
 | Job | Specific service instance performed for a client. | Job Date, Service Type, Status (Planned/In-Progress/Complete), Description, Location, Season (Summer/Winter/Other) | Belongs to Client, Has Service Type, Has Expense Allocations, Has Income, Involves Contractors |
 | Service | Type of work offered. | Name, Description, Default Rate, Category, Season Applicability | Used in Jobs, Offered by Business |
-| **Expense** | Money spent on business costs. | Amount, Date, Category, Payment Method, Vendor, CaptureMethod ('OCR', 'Manual'), IsSplit (Boolean), IsGeneralExpense (Boolean), **[Optional] GST/QST Paid (if tax enabled)** | Has Expense Allocations (one or many), Has Receipt (optional) |
+| **Expense** | Money spent on business costs. | Amount, Date, Category, Payment Method, Vendor, CaptureMethod ('OCR', 'Manual'), IsSplit (Boolean), IsGeneralExpense (Boolean), **Status ('draft', 'synced', etc.)**, **[Optional] GST/QST Paid (if tax enabled)** | Has Expense Allocations (one or many), Has Receipt (optional) |
 | **ExpenseAllocation** | Links an Expense to a Job and specifies the allocated amount. | AllocatedAmount, **[Optional] GSTQSTAllocated (if tax enabled)** | Belongs to Expense, Belongs to Job |
 | **Receipt** | Proof of purchase document. | Image, Date, Vendor, Total Amount, OCRStatus ('Pending', 'Complete', 'Failed'), RawOCRData (optional), **[Optional] GST/QST Amount (from OCR, if tax enabled)** | Belongs to Expense |
 | Invoice | Payment request document. | Invoice Number, Issue Date, Due Date, Total Amount, Status (Draft/Sent/Paid), **[Optional] GST/QST Amount (if tax enabled)** | Associated with Client, Contains Job(s) |
@@ -98,49 +99,173 @@ This document establishes a clear, shared understanding of the FinTrack problem 
 | **Contractor** | Individual or business performing services on a contract basis. | Name (Individual/Business), Contact Info, Service Specialization, Rate/Payment Terms, **[Optional] Tax ID (if applicable)** | Works on Jobs, Receives Payments, Has Contracts (Contractor Contracts) |
 | Profit | Calculated financial performance. | Amount, Period (Job/Week/Month/Season), Income Total, Total Allocated Expenses, Total Allocated Contractor Payments | Associated with Job(s) or Business |
 
-#### 2.2 Entity Relationship Diagram *(Conceptual Update - Simplified, TaxInfo Optional)*
+#### 2.2 Entity Relationship Diagram
+
+```mermaid
+erDiagram
+    Business  {
+        string Name
+        string Address
+        string ContactInfo
+        enum TaxRegistrationStatus "Activation Trigger"
+        enum LanguagePreference
+        list ServiceTypesOffered
+    }
+    TaxInfo {
+        string RegistrationNumbers
+        decimal Rates
+        enum CollectionStatus
+        string ReportingPeriod
+        enum ThresholdStatus
+        enum TaxGuidanceAcknowledgementStatus
+        string LinkToOfficialResources
+    }
+    Client {
+        string Name
+        string Address
+        string ContactInfo
+        enum ClientType
+        string PaymentPreference
+        boolean DefaultTaxApplicability "Optional, if tax enabled"
+    }
+    Job {
+        date JobDate
+        string ServiceType
+        enum Status
+        string Description
+        string Location
+        enum Season
+    }
+    Service {
+        string Name
+        string Description
+        decimal DefaultRate
+        string Category
+        enum SeasonApplicability
+    }
+    Expense {
+        decimal Amount
+        date Date
+        string Category
+        string PaymentMethod
+        string Vendor
+        enum CaptureMethod
+        boolean IsSplit
+        boolean IsGeneralExpense
+        enum Status "draft, synced, etc."
+        decimal GSTPaid "Optional, if tax enabled"
+        decimal QSTPaid "Optional, if tax enabled"
+    }
+    ExpenseAllocation {
+        decimal AllocatedAmount
+        decimal GSTQSTAllocated "Optional, if tax enabled"
+    }
+    Receipt {
+        string Image
+        date Date
+        string Vendor
+        decimal TotalAmount
+        enum OCRStatus
+        string RawOCRData "Optional"
+        decimal GSTAmount "Optional, if tax enabled"
+        decimal QSTAmount "Optional, if tax enabled"
+    }
+    Invoice {
+        string InvoiceNumber
+        date IssueDate
+        date DueDate
+        decimal TotalAmount
+        enum Status
+        decimal GSTAmount "Optional, if tax enabled"
+        decimal QSTAmount "Optional, if tax enabled"
+    }
+    Payment {
+        decimal Amount
+        date Date
+        enum Method
+        enum Status
+        enum Direction
+        string AssociatedInvoiceJob "Client Payments"
+        string AssociatedContractor "Contractor Payments"
+        boolean IsSplit
+        boolean IsGeneralExpense
+    }
+    PaymentAllocation {
+        decimal AllocatedAmount
+    }
+    Contract {
+        date StartDate
+        date EndDate
+        string Terms
+        string ServiceFrequency
+        string Pricing
+        enum ContractType
+        string AssociatedParties
+    }
+    Contractor {
+        string Name
+        string ContactInfo
+        string ServiceSpecialization
+        string RatePaymentTerms
+        string TaxID "Optional"
+    }
+    Profit {
+        decimal Amount
+        enum Period
+        decimal IncomeTotal
+        decimal TotalAllocatedExpenses
+        decimal TotalAllocatedContractorPayments
+    }
+
+    Business ||--o{ Client : has
+    Business ||--o{ Service : offers
+    Business ||--o{ Job : manages
+    Business ||--o{ Expense : incurs_general
+    Business ||--o{ Income : receives_general
+    Business ||--o{ Contractor : engages
+    Business |o..o| TaxInfo : has_conditional
+
+    Client ||--o{ Job : requests
+    Client ||--o{ Contract : signs_client
+    Client ||--o{ Invoice : receives
+
+    Job ||--|| Client : belongs_to
+    Job ||--|| Service : performs
+    Job ||--o{ ExpenseAllocation : includes_cost
+    Job ||--o{ PaymentAllocation : includes_contractor_cost
+    Job ||--o{ Income : generates
+    Job ||--o{ Contractor : involves
+    Job ||--|{ Profit : results_in
+
+    Invoice ||--|| Client : billed_to
+    Invoice ||--o{ Job : covers
+    Invoice ||--o| Payment : paid_by_client
+
+    Expense ||--o{ ExpenseAllocation : is_allocated_via
+    Expense ||--o| Receipt : documented_by
+    Expense ||..o| Business : is_general_for "Optional, if IsGeneralExpense=true"
+
+    ExpenseAllocation ||--|| Expense : allocates
+    ExpenseAllocation ||--|| Job : to_job
+
+    Payment ||..o| Invoice : pays_client "Optional, for client payments"
+    Payment ||..o| Job : pays_for_job "Optional, for direct job payments"
+    Payment ||--|| Contractor : paid_to "For contractor payments"
+    Payment ||--o{ PaymentAllocation : is_allocated_via "For contractor payments"
+    Payment ||..o| Business : is_general_for "Optional, if IsGeneralExpense=true"
+
+    PaymentAllocation ||--|| Payment : allocates_contractor
+    PaymentAllocation ||--|| Job : to_job
+
+    Contractor ||--o{ Job : works_on
+    Contractor ||--o{ Payment : receives
+    Contractor ||--o{ Contract : signs_contractor
+
+    Contract ||--|| Service : specifies
 
 ```
-Business  <---- [OPTIONAL, via Tax Reg Status] ---- TaxInfo
-    |
-    |---- Client (many)
-    |      |
-    |      |---- Contract (many) [Client Contracts]
-    |      |      |---- Service (many)
-    |      |
-    |      |---- Invoice (many)  <---- [CONDITIONAL Tax Logic]
-    |             |
-    |             |---- Payment (many) [Client Payments] <-- Also potentially linked directly to Job
-    |             |
-    |             |---- Job (many)
-    |                    |
-    |                    |---- Service (one)
-    |                    |
-    |                    |---- Contractor (many) <-- Involved in Job
-    |                    |
-    |                    |---- ExpenseAllocation (many) ----> Expense (one) --> Receipt (optional, one)
-    |                    |                                        ^
-    |                    |                                        |---- [CONDITIONAL Tax Logic/Attributes]
-    |                    |
-    |                    |---- PaymentAllocation (many) ----> Payment (one) [Contractor Payment]
-    |                    |
-    |                    |---- Profit (calculated from core inputs)
-    |
-    |---- Expense (many) [General business expenses - linked via IsGeneralExpense flag, not Allocation]
-    |      |                 ^
-    |      |                 |---- [CONDITIONAL Tax Logic/Attributes]
-    |      |
-    |      |---- Receipt (one)
-    |
-    |---- Contractor (many) <-- Associated with the Business
-           |
-           |---- Contract (many) [Contractor Contracts]
-           |
-           |---- Payment (many) [Contractor Payments - potentially split via PaymentAllocation]
-```
-*(Note: Emphasizes core relationships. TaxInfo is optional and linked via Business status. Conditional tax logic/attributes apply to Invoice/Expense when enabled.)*
 
-### 3. Business Rules Catalog *(Revised for Conditional Tax Rules)*
+### 3. Business Rules Catalog
 
 | ID | Rule | Description | Rationale | Source |
 |----|------|-------------|-----------|--------|
@@ -162,7 +287,7 @@ Business  <---- [OPTIONAL, via Tax Reg Status] ---- TaxInfo
 | BR-16 | General Expense Marking | **(Core)** Users must be able to easily mark expenses/payments as non-job specific (general overhead). | Ensures overhead is tracked but excluded from individual job profit calculations. | Enhanced MVP Scope |
 
 
-### 4. Domain Constraints *(Revised for Core/Conditional)*
+### 4. Domain Constraints
 
 | ID | Constraint | Description | Impact | Workarounds |
 |----|------------|-------------|--------|------------|
@@ -178,7 +303,7 @@ Business  <---- [OPTIONAL, via Tax Reg Status] ---- TaxInfo
 | DC-10 | OCR Accuracy Dependence | **(Core)** System usability heavily relies on acceptable OCR accuracy for core fields. **Errors require user correction.** **(Conditional)** Tax field OCR adds complexity if enabled. | **Low accuracy leads to frustration, negating time savings.** | **Easy correction UI; set realistic user expectations; choose reliable OCR tech.** Separate validation for tax fields. |
 | DC-11 | Context Data Permissions | **(Core)** Smart suggestions rely on user granting permissions (GPS/Calendar). **Feature is less useful without permissions.** | **Appears less "smart" if permissions denied.** | **Clear value explanation; robust manual selection fallback.** |
 
-### 5. Domain Workflows/Processes *(Revised for Core/Conditional)*
+### 5. Domain Workflows/Processes
 
 #### 5.1 Process: Job Lifecycle Financial Management *(Core + Conditional Tax Steps)*
 1. Step 1: Job Creation **(Core)**
@@ -278,7 +403,7 @@ Business  <---- [OPTIONAL, via Tax Reg Status] ---- TaxInfo
    - Prepare for first tax filing period using generated reports (UC-TR)
    - Generate reports for accountant review
 
-## Assumptions *(Confirmed as accurate by user feedback, emphasis on Core)*
+## Assumptions
 - [x] Business owners have basic smartphone proficiency for **core tasks**.
 - [x] Most expenses can be categorized into common groups (fuel, materials, equipment, etc.) for **core tracking**.
 - [x] Users prioritize **simplicity, speed, and effortless input for core tasks** over comprehensive accounting features.
@@ -286,7 +411,7 @@ Business  <---- [OPTIONAL, via Tax Reg Status] ---- TaxInfo
 - [x] Seasonal transitions or offering diverse services are common **core operational patterns**.
 - [x] Basic tax knowledge varies significantly among users; guidance is helpful **if/when they engage with conditional tax features**.
 
-## Risks *(Revised for Core/Conditional)*
+## Risks
 - [x] Risk 1: **Complex conditional tax calculations/OCR capture may lead to compliance issues if not accurate and easily correctable when enabled.**
    - Impact: Legal and financial repercussions for users who activate these features.
    - Mitigation: Consult with Quebec tax experts; clear disclaimer; user validation/correction step for OCR tax data; rigorous testing of conditional module.
@@ -317,13 +442,14 @@ Business  <---- [OPTIONAL, via Tax Reg Status] ---- TaxInfo
    - Status: [Status]
 
 ## Change Log
-| Date          | Version | Changed By   | Changes Made |
-| :------------ | :------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| April 7, 2025 | 0.1     | FinTrack PM  | Initial creation based on interview findings |
-| April 7, 2025 | 0.2     | FinTrack PM  | Incorporated user feedback: Added core Expense categories; Confirmed Helper as distinct entity; Added Tax Guidance concept & rule (BR-11); Emphasized Service flexibility; Confirmed Assumptions & Workflows. |
-| April 8, 2025 | 0.3     | FinTrack PM  | Standardized terminology: Replaced "Helper" with "Contractor" throughout. Added Domain Constraint DC-9 and Risk 5 related to legal classification disclaimer. Adjusted related descriptions. |
-| April 8, 2025 | 0.4     | Gemini Model | **Major Revision:** Updated Glossary, Entities (Expense, Payment, added Allocation), Relationships, Business Rules (added BR-12 to BR-16), Constraints (added DC-10, DC-11), and Workflows to incorporate automation features (OCR, Suggestions, Splitting, Adjustment) aligning with enhanced MVP Scope (v1.4/v0.4). |
-| **April 9, 2025** | **0.5** | **Gemini Model** | **Refactored based on core vs. conditional prioritization instructions:** Added Guiding Principles; Marked tax-related entities/attributes/rules as optional/conditional; Emphasized core concepts in Glossary, Model, Rules, Constraints, Workflows; Referenced activation trigger (`Tax Registration Status`). Ensured full document output. |
+| Date             | Version | Changed By   | Changes Made |
+| :--------------- | :------ | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| April 7, 2025    | 0.1     | FinTrack PM  | Initial creation based on interview findings |
+| April 7, 2025    | 0.2     | FinTrack PM  | Incorporated user feedback: Added core Expense categories; Confirmed Helper as distinct entity; Added Tax Guidance concept & rule (BR-11); Emphasized Service flexibility; Confirmed Assumptions & Workflows. |
+| April 8, 2025    | 0.3     | FinTrack PM  | Standardized terminology: Replaced "Helper" with "Contractor" throughout. Added Domain Constraint DC-9 and Risk 5 related to legal classification disclaimer. Adjusted related descriptions. |
+| April 8, 2025    | 0.4     | Gemini Model | **Major Revision:** Updated Glossary, Entities (Expense, Payment, added Allocation), Relationships, Business Rules (added BR-12 to BR-16), Constraints (added DC-10, DC-11), and Workflows to incorporate automation features (OCR, Suggestions, Splitting, Adjustment) aligning with enhanced MVP Scope (v1.4/v0.4). |
+| April 9, 2025    | 0.5     | Gemini Model | **Refactored based on core vs. conditional prioritization instructions:** Added Guiding Principles; Marked tax-related entities/attributes/rules as optional/conditional; Emphasized core concepts in Glossary, Model, Rules, Constraints, Workflows; Referenced activation trigger (`Tax Registration Status`). Ensured full document output. |
+| **April 9, 2025** | **0.6** | **Gemini Model** | **Updated Glossary:** Added definitions for "Draft Expense" and "Deferred Processing" based on user feedback and standardized terminology. Updated Expense entity attributes to include Status. Updated ERD diagram. Updated version number. |
 
 
 ## Sign-off
@@ -338,3 +464,4 @@ Business  <---- [OPTIONAL, via Tax Reg Status] ---- TaxInfo
 - Begin Solution Vision development
 - Schedule review with service business owners to validate model updates **(including core/conditional separation and automation concepts)**
 - Evaluate technical approach for **core OCR, suggestions, offline limitations, and conditional module integration**.
+- Use this updated model (v0.6) as the basis for subsequent documentation and design decisions.

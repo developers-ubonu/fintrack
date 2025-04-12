@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Creation - Job Management</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .mockup-container {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .form-container {
+            padding: 16px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .required-field::after {
+            content: " *";
+            color: #e53935;
+        }
+        .client-selection {
+            background-color: #f5f5f7;
+            border: 1px dashed #aaa;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .client-selection-text {
+            color: #666;
+        }
+        .service-type-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .service-type-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .service-type-option.selected {
+            background-color: #e8f5e9;
+            border-color: #4CAF50;
+            color: #4CAF50;
+        }
+        .service-type-option i {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .buttons-container {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .button {
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+        .primary-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .secondary-button {
+            background-color: #f5f5f7;
+            border: 1px solid #ddd;
+            color: #666;
+        }
+        .navigation {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .nav-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+        .quick-save {
+            font-size: 14px;
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 16px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <div class="header">
+            <button class="back-button">←</button>
+            <h1>Add New Job</h1>
+            <div style="width: 24px;"></div> <!-- For spacing -->
+        </div>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label class="required-field">Job Name</label>
+                <input type="text" placeholder="Enter job name or description">
+            </div>
+            
+            <div class="form-group">
+                <label class="required-field">Client</label>
+                <div class="client-selection">
+                    <span class="client-selection-text">Select a client</span>
+                    <span>→</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="required-field">Service Type</label>
+                <div class="service-type-options">
+                    <div class="service-type-option selected">
+                        <i>🌱</i>
+                        Landscaping
+                    </div>
+                    <div class="service-type-option">
+                        <i>❄️</i>
+                        Snow Removal
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="required-field">Location</label>
+                <input type="text" placeholder="Enter job location">
+            </div>
+            
+            <div class="form-group">
+                <label class="required-field">Start Date</label>
+                <input type="date">
+            </div>
+            
+            <div class="form-group">
+                <label>End Date (Optional)</label>
+                <input type="date">
+            </div>
+            
+            <div class="form-group">
+                <label>Status</label>
+                <select>
+                    <option>Planned</option>
+                    <option>In Progress</option>
+                    <option>Complete</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Notes (Optional)</label>
+                <textarea placeholder="Add any additional details about this job"></textarea>
+            </div>
+            
+            <div class="buttons-container">
+                <div class="button secondary-button">Cancel</div>
+                <div class="button primary-button">Continue</div>
+            </div>
+            
+            <div class="quick-save">Save with minimal info</div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="job-list.html" class="nav-link">Back to Job List</a>
+        <a href="client-selection.html" class="nav-link">Next: Client Selection</a>
+    </div>
+    
+    <!-- Mockup Notes -->
+    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666;">
+        <h3>Implementation Notes:</h3>
+        <ul>
+            <li>Required fields are clearly marked with an asterisk (*)</li>
+            <li>Client selection opens a dedicated client selection screen</li>
+            <li>Service type is visually selectable with appropriate icons</li>
+            <li>Date fields use native date picker components for ease of use</li>
+            <li>Default status is "Planned" for new jobs</li>
+            <li>Quick save option allows minimal data entry (just name and client) for fast job creation</li>
+            <li>Form should validate input before proceeding</li>
+            <li>Location field could offer geolocation support in future versions</li>
+            <li>Consider adding a recurring job option for repeat customers</li>
+            <li>Provide appropriate feedback for input validation errors</li>
+        </ul>
+    </div>
+</body>
+</html>

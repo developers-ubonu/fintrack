@@ -205,6 +205,21 @@ To identify and document the needs, goals, and pain points of small landscaping 
     5.  Optionally compare to previous weeks.
   - **Expected Outcome:** Clear, at-a-glance understanding of weekly financial performance with minimal complexity.
 
+- **Use Case Name (UC-DS):** Dashboard & Home Screen
+  - **Description:** Provide a consolidated starting point showing key business information at a glance, including active jobs, draft expenses requiring attention, and recent financial activity. (Core Functionality)
+  - **Actors:** Business owner
+  - **Steps:**
+    1.  User launches the application and authenticates.
+    2.  System displays the dashboard as the default landing page.
+    3.  User views Active Jobs section showing current/upcoming jobs with status indicators.
+    4.  User views Draft Expenses section highlighting expenses needing completion.
+    5.  User views Weekly Financial Summary section showing income vs expenses for current period.
+    6.  User can tap on any job to navigate to its details (see UC-JM).
+    7.  User can tap on any draft expense to resume processing it (see UC-ME, UC-EL).
+    8.  User can tap "Add" buttons for quick access to create new jobs or expenses.
+    9.  User can pull to refresh dashboard data when online.
+  - **Expected Outcome:** Users gain immediate visibility into their current business state and quick access to the most common actions, reducing navigation time and improving awareness of items needing attention.
+
 - **Use Case Name (UC-TG):** Tax Guidance Access *(Conditional Context)*
   - **Description:** Access basic information and links about Quebec tax obligations and thresholds. Primarily relevant for users considering registration or needing reminders **if tax features are enabled/relevant to their status.**
   - **Actors:** Business owner, prospective business owner
@@ -230,12 +245,12 @@ To identify and document the needs, goals, and pain points of small landscaping 
   - **Expected Outcome:** An organized list of clients is maintained, enabling efficient selection for jobs and invoicing.
 
 - **Use Case Name (UC-JM):** Job Management
-  - **Description:** Create new jobs, associate them with clients, track basic job status, and view job history. (Core Functionality)
+  - **Description:** Create new jobs, associate them with clients, track basic job status, and view job history. Current MVP focuses on one-time jobs, with future support planned for recurring jobs (e.g., weekly lawn care) and on-demand/condition-triggered jobs (e.g., snow removal after snowfall). (Core Functionality)
   - **Actors:** Business owner
   - **Steps:**
     1.  Select option to view Job List.
     2.  View list of existing jobs with key details (e.g., Name/Description, Client, Status).
-    3.  Select option to Add New Job.
+    3.  Select option to Add New Job (one-time job in MVP).
     4.  Enter job details (Name/Description, Location, Service Type - e.g., Landscaping, Snow Removal, Cleaning).
     5.  Associate the job with an existing Client (from client list - see UC-CM).
     6.  Set initial job Status (e.g., Planned, In-Progress).
@@ -243,6 +258,10 @@ To identify and document the needs, goals, and pain points of small landscaping 
     8.  Select an existing job to view details or update status (e.g., mark as Complete).
     9.  Use search/filter function to find specific jobs (e.g., by client, by status).
   - **Expected Outcome:** Jobs are created and tracked, allowing expenses and income to be associated correctly for profitability analysis across various service types.
+  - **Future Extensions (Post-MVP):**
+    - Support for recurring jobs with fixed schedules (e.g., weekly lawn mowing)
+    - Support for on-demand/condition-triggered jobs (e.g., snow removal after snowfall)
+    - Integration with external job sources/platforms
 
 - **Use Case Name (UC-AM):** Account Management
   - **Description:** Manage user login, profile information, and application settings like language preference. Includes setting the **"Tax Registration Status" which activates conditional tax features.** (Core Functionality + Conditional Trigger)

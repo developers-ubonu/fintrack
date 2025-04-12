@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duplicate Job - Job Management</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .mockup-container {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .info-banner {
+            background-color: #e8f5e9;
+            color: #388e3c;
+            padding: 12px 16px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        .info-banner-icon {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        .form-container {
+            padding: 16px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .required-field::after {
+            content: " *";
+            color: #e53935;
+        }
+        .client-selection {
+            background-color: #f5f5f7;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .service-type-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .service-type-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .service-type-option.selected {
+            background-color: #e8f5e9;
+            border-color: #4CAF50;
+            color: #4CAF50;
+        }
+        .service-type-option i {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .buttons-container {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .button {
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+        .primary-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .secondary-button {
+            background-color: #f5f5f7;
+            border: 1px solid #ddd;
+            color: #666;
+        }
+        .what-to-copy {
+            border-top: 1px solid #eee;
+            padding-top: 16px;
+            margin-top: 16px;
+        }
+        .what-to-copy-title {
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #555;
+        }
+        .copy-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .copy-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #4CAF50;
+            border-radius: 4px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .copy-checkbox.checked {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 12px;
+        }
+        .copy-label {
+            font-size: 14px;
+        }
+        .navigation {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .nav-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <div class="header">
+            <button class="back-button">←</button>
+            <h1>Duplicate Job</h1>
+            <div style="width: 24px;"></div> <!-- For spacing -->
+        </div>
+        
+        <div class="info-banner">
+            <div class="info-banner-icon">ℹ️</div>
+            <div>Creating a new job based on "Johnson Backyard Landscaping"</div>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label class="required-field">Job Name</label>
+                <input type="text" value="Johnson Backyard Landscaping - Copy" placeholder="Enter job name or description">
+            </div>
+            
+            <div class="form-group">
+                <label class="required-field">Client</label>
+                <div class="client-selection">
+                    <span>Johnson Family</span>
+                    <span>→</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="required-field">Service Type</label>
+                <div class="service-type-options">
+                    <div class="service-type-option selected">
+                        <i>🌱</i>
+                        Landscaping
+                    </div>
+                    <div class="service-type-option">
+                        <i>❄️</i>
+                        Snow Removal
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="required-field">Location</label>
+                <input type="text" value="Westmount" placeholder="Enter job location">
+            </div>
+            
+            <div class="form-group">
+                <label class="required-field">Start Date</label>
+                <input type="date" value="2025-05-15">
+            </div>
+            
+            <div class="form-group">
+                <label>End Date (Optional)</label>
+                <input type="date">
+            </div>
+            
+            <div class="what-to-copy">
+                <div class="what-to-copy-title">What to copy from the original job:</div>
+                
+                <div class="copy-option">
+                    <div class="copy-checkbox checked">✓</div>
+                    <div class="copy-label">Basic details (service type, location)</div>
+                </div>
+                
+                <div class="copy-option">
+                    <div class="copy-checkbox checked">✓</div>
+                    <div class="copy-label">Client association</div>
+                </div>
+                
+                <div class="copy-option">
+                    <div class="copy-checkbox"></div>
+                    <div class="copy-label">Job notes</div>
+                </div>
+                
+                <div class="copy-option">
+                    <div class="copy-checkbox"></div>
+                    <div class="copy-label">Financial information (NOT RECOMMENDED)</div>
+                </div>
+            </div>
+            
+            <div class="buttons-container">
+                <div class="button secondary-button">Cancel</div>
+                <div class="button primary-button">Create Job</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="job-details.html" class="nav-link">Back to Job Details</a>
+        <a href="offline-job-list.html" class="nav-link">Next: Offline Job List</a>
+    </div>
+    
+    <!-- Mockup Notes -->
+    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666;">
+        <h3>Implementation Notes:</h3>
+        <ul>
+            <li>Clear indicator showing which job is being duplicated</li>
+            <li>Pre-filled form with data from the original job</li>
+            <li>Job name is automatically appended with "- Copy" (user can edit)</li>
+            <li>Client remains the same by default but can be changed</li>
+            <li>Start date is adjusted to a future date by default</li>
+            <li>Options for selecting which aspects to copy from the original job</li>
+            <li>Warning against copying financial information to prevent data confusion</li>
+            <li>Form validation should work identically to the standard job creation form</li>
+            <li>Consider adding recurring job option for regular service clients</li>
+            <li>This screen should only be accessible when online (not in offline mode)</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job List - Job Management</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .mockup-container {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .add-button {
+            background-color: white;
+            color: #4CAF50;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .search-bar {
+            padding: 12px 16px;
+            background-color: #f5f5f7;
+            display: flex;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .filter-bar {
+            padding: 8px 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .filter-option {
+            background-color: #f5f5f7;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+        }
+        .filter-option.active {
+            background-color: #e8f5e9;
+            color: #4CAF50;
+            border-color: #a5d6a7;
+        }
+        .job-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .job-item {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        .job-item:last-child {
+            border-bottom: none;
+        }
+        .job-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .job-client {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        .job-meta {
+            display: flex;
+            font-size: 12px;
+            color: #888;
+            gap: 12px;
+        }
+        .job-status {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-left: 6px;
+        }
+        .status-planned {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        .status-in-progress {
+            background-color: #fff3e0;
+            color: #ff9800;
+        }
+        .status-complete {
+            background-color: #e8f5e9;
+            color: #4caf50;
+        }
+        .context-menu {
+            position: relative;
+            display: inline-block;
+        }
+        .context-button {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 0;
+        }
+        .navigation {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .nav-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <div class="header">
+            <button class="back-button">←</button>
+            <h1>Jobs</h1>
+            <button class="add-button">+</button>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Search jobs...">
+        </div>
+        
+        <div class="filter-bar">
+            <div class="filter-option active">All</div>
+            <div class="filter-option">Planned</div>
+            <div class="filter-option">In Progress</div>
+            <div class="filter-option">Complete</div>
+            <div class="filter-option">By Client</div>
+        </div>
+        
+        <ul class="job-list">
+            <li class="job-item">
+                <div class="job-name">Johnson Backyard Landscaping <span class="job-status status-planned">Planned</span></div>
+                <div class="job-client">Client: Johnson Family</div>
+                <div class="job-meta">
+                    <span>Start: Apr 15, 2025</span>
+                    <span>Location: Westmount</span>
+                </div>
+            </li>
+            
+            <li class="job-item">
+                <div class="job-name">Cooper's Lawn Renovation <span class="job-status status-in-progress">In Progress</span></div>
+                <div class="job-client">Client: Cooper Residence</div>
+                <div class="job-meta">
+                    <span>Start: Apr 3, 2025</span>
+                    <span>Location: NDG</span>
+                </div>
+            </li>
+            
+            <li class="job-item">
+                <div class="job-name">Downtown Office Complex <span class="job-status status-in-progress">In Progress</span></div>
+                <div class="job-client">Client: Metropolis Commercial</div>
+                <div class="job-meta">
+                    <span>Start: Mar 28, 2025</span>
+                    <span>Location: Downtown</span>
+                </div>
+            </li>
+            
+            <li class="job-item">
+                <div class="job-name">Martin Garden Cleanup <span class="job-status status-complete">Complete</span></div>
+                <div class="job-client">Client: Martin Family</div>
+                <div class="job-meta">
+                    <span>Start: Mar 20, 2025</span>
+                    <span>Location: Côte-des-Neiges</span>
+                </div>
+            </li>
+            
+            <li class="job-item">
+                <div class="job-name">Small Business Park <span class="job-status status-planned">Planned</span></div>
+                <div class="job-client">Client: Tech Corridor LLC</div>
+                <div class="job-meta">
+                    <span>Start: Apr 20, 2025</span>
+                    <span>Location: Saint-Laurent</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="navigation">
+        <a href="index.html" class="nav-link">Overview</a>
+        <a href="job-creation.html" class="nav-link">Next: Job Creation</a>
+    </div>
+    
+    <!-- Mockup Notes -->
+    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666;">
+        <h3>Implementation Notes:</h3>
+        <ul>
+            <li>Jobs are sorted by start date (newest first) by default</li>
+            <li>Job list supports pull-to-refresh for immediate data updates</li>
+            <li>Search filters across job name, client name, and location</li>
+            <li>Status indicators use consistent color coding across the app</li>
+            <li>Tapping a job item opens the job details screen</li>
+            <li>Long-pressing a job item reveals additional actions (duplicate, delete)</li>
+            <li>The job list should cache for offline viewing</li>
+            <li>When offline, a clear offline indicator should appear at the top</li>
+            <li>The + button should be disabled in offline mode</li>
+            <li>Consider lazy loading for large job lists to maintain performance</li>
+        </ul>
+    </div>
+</body>
+</html>

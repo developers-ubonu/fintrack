@@ -64,6 +64,7 @@ These features constitute the standalone, always-available functionality providi
     * Service type (landscaping or snow removal, flexible)
     * Start and expected end dates
     * Job status (upcoming, in-progress, complete)
+* Job duplication functionality
 * Job listing with search and filter by status/client
 * Job profitability calculation (revenue - expenses - contractor payments, **core basis**)
 * Basic job notes

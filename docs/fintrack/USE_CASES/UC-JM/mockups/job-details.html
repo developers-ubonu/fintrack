@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details - Job Management</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .mockup-container {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .menu-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 12px;
+            margin-left: 8px;
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        .section {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .edit-link {
+            font-size: 12px;
+            color: #4CAF50;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        .detail-item {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .detail-item:last-child {
+            margin-bottom: 0;
+        }
+        .detail-label {
+            flex: 0 0 100px;
+            color: #777;
+        }
+        .detail-value {
+            flex: 1;
+        }
+        .tabs {
+            display: flex;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+        }
+        .tab.active {
+            border-bottom: 2px solid #4CAF50;
+            color: #4CAF50;
+            font-weight: 500;
+        }
+        .financial-summary {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+        .financial-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .financial-item:last-child {
+            margin-bottom: 0;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+            font-weight: 600;
+        }
+        .expense-item, .income-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        .expense-item:last-child, .income-item:last-child {
+            border-bottom: none;
+        }
+        .expense-details, .income-details {
+            flex: 1;
+        }
+        .expense-name, .income-name {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .expense-meta, .income-meta {
+            font-size: 12px;
+            color: #888;
+        }
+        .expense-amount, .income-amount {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .expense-amount {
+            color: #e53935;
+        }
+        .income-amount {
+            color: #4CAF50;
+        }
+        .status-actions {
+            margin-top: 12px;
+        }
+        .status-button {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            background-color: #e8f5e9;
+            color: #4CAF50;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+        .notes {
+            padding: 12px;
+            background-color: #fffde7;
+            border-radius: 8px;
+            font-size: 14px;
+            font-style: italic;
+            color: #5d4037;
+            margin-top: 12px;
+        }
+        .empty-state {
+            padding: 20px;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+        .add-button {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            border: 1px dashed #aaa;
+            border-radius: 8px;
+            color: #4CAF50;
+            margin-top: 12px;
+            cursor: pointer;
+        }
+        .offline-indicator {
+            background-color: #fff3e0;
+            color: #ff9800;
+            padding: 8px 12px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .navigation {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .nav-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <div class="header">
+            <button class="back-button">←</button>
+            <h1>Johnson Backyard <span class="status-badge">Planned</span></h1>
+            <button class="menu-button">⋮</button>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active">Details</div>
+            <div class="tab">Financial</div>
+            <div class="tab">Notes</div>
+        </div>
+        
+        <!-- Details Tab -->
+        <div class="section">
+            <div class="section-title">
+                Job Information
+                <span class="edit-link">Edit</span>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-label">Client:</div>
+                <div class="detail-value">Johnson Family</div>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-label">Service Type:</div>
+                <div class="detail-value">Landscaping</div>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-label">Location:</div>
+                <div class="detail-value">Westmount</div>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-label">Start Date:</div>
+                <div class="detail-value">April 15, 2025</div>
+            </div>
+            
+            <div class="detail-item">
+                <div class="detail-label">End Date:</div>
+                <div class="detail-value">Not specified</div>
+            </div>
+            
+            <div class="status-actions">
+                <div class="status-button">Mark as In Progress</div>
+            </div>
+        </div>
+        
+        <!-- Financial Tab (would be hidden initially) -->
+        <div class="section" style="display: none;">
+            <div class="section-title">Financial Summary</div>
+            
+            <div class="financial-summary">
+                <div class="financial-item">
+                    <div>Total Income:</div>
+                    <div>$1,200.00</div>
+                </div>
+                <div class="financial-item">
+                    <div>Total Expenses:</div>
+                    <div>$450.00</div>
+                </div>
+                <div class="financial-item">
+                    <div>Profit:</div>
+                    <div>$750.00</div>
+                </div>
+            </div>
+            
+            <div class="section-title" style="margin-top: 20px;">
+                Expenses
+                <span class="edit-link">Add</span>
+            </div>
+            
+            <div class="expense-item">
+                <div class="expense-details">
+                    <div class="expense-name">Garden Stones (50kg)</div>
+                    <div class="expense-meta">Apr 10, 2025 • Materials</div>
+                </div>
+                <div class="expense-amount">-$120.00</div>
+            </div>
+            
+            <div class="expense-item">
+                <div class="expense-details">
+                    <div class="expense-name">Topsoil Premium</div>
+                    <div class="expense-meta">Apr 8, 2025 • Materials</div>
+                </div>
+                <div class="expense-amount">-$85.00</div>
+            </div>
+            
+            <div class="expense-item">
+                <div class="expense-details">
+                    <div class="expense-name">New Sprinklers</div>
+                    <div class="expense-meta">Apr 5, 2025 • Equipment</div>
+                </div>
+                <div class="expense-amount">-$245.00</div>
+            </div>
+            
+            <div class="section-title" style="margin-top: 20px;">
+                Income
+                <span class="edit-link">Add</span>
+            </div>
+            
+            <div class="income-item">
+                <div class="income-details">
+                    <div class="income-name">Initial Deposit</div>
+                    <div class="income-meta">Mar 28, 2025 • Cash</div>
+                </div>
+                <div class="income-amount">+$500.00</div>
+            </div>
+            
+            <div class="income-item">
+                <div class="income-details">
+                    <div class="income-name">Progress Payment</div>
+                    <div class="income-meta">Apr 10, 2025 • E-Transfer</div>
+                </div>
+                <div class="income-amount">+$700.00</div>
+            </div>
+        </div>
+        
+        <!-- Notes Tab (would be hidden initially) -->
+        <div class="section" style="display: none;">
+            <div class="section-title">
+                Job Notes
+                <span class="edit-link">Edit</span>
+            </div>
+            
+            <div class="notes">
+                Client requested native plants in the back corner. Check with supplier for availability. Remember to bring extra mulch - previous job used less than expected.
+            </div>
+            
+            <div class="section-title" style="margin-top: 20px;">Attachments</div>
+            <div class="empty-state">No attachments added</div>
+            <div class="add-button">+ Add Attachment</div>
+        </div>
+        
+        <!-- Offline indicator - would be shown when offline -->
+        <div class="offline-indicator" style="display: none;">
+            ⚠️ You're offline. Some actions will sync when connection is restored.
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="job-list.html" class="nav-link">Back to Job List</a>
+        <a href="duplicate-job.html" class="nav-link">Next: Duplicate Job</a>
+    </div>
+    
+    <!-- Mockup Notes -->
+    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666;">
+        <h3>Implementation Notes:</h3>
+        <ul>
+            <li>Job details are organized into tabs for better mobile usability</li>
+            <li>Status update is prominent with clear action button</li>
+            <li>Financial information shows a clear profit calculation</li>
+            <li>Expenses and income are linked to the relevant tracking systems</li>
+            <li>Job notes provide a simple way to add and view important information</li>
+            <li>Offline indicator would appear when connectivity is lost</li>
+            <li>Edit option is available for all sections when online</li>
+            <li>Context menu (three dots) provides additional actions (duplicate, delete, share)</li>
+            <li>Status badge changes color based on status (Planned: blue, In Progress: orange, Complete: green)</li>
+            <li>Consider adding a timeline view for job progress in a future version</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Selection - Job Management</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .mockup-container {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .search-bar {
+            padding: 12px 16px;
+            background-color: #f5f5f7;
+            display: flex;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .client-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .client-item {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .client-item:last-child {
+            border-bottom: none;
+        }
+        .client-details {
+            flex: 1;
+        }
+        .client-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .client-info {
+            font-size: 14px;
+            color: #666;
+        }
+        .client-select {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+        }
+        .client-select.selected {
+            border-color: #4CAF50;
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+        .recent-clients {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+        }
+        .recent-clients-title {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .recent-clients-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .recent-client-item {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .recent-client-item .client-name {
+            font-size: 14px;
+        }
+        .recent-client-item .client-info {
+            font-size: 12px;
+        }
+        .recent-client-item.selected {
+            border-color: #4CAF50;
+            background-color: #e8f5e9;
+        }
+        .create-new-client {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            color: #4CAF50;
+            cursor: pointer;
+        }
+        .create-new-client-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        .buttons-container {
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+        }
+        .button {
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+        .primary-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .secondary-button {
+            background-color: #f5f5f7;
+            border: 1px solid #ddd;
+            color: #666;
+        }
+        .navigation {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .nav-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <div class="header">
+            <button class="back-button">←</button>
+            <h1>Select Client</h1>
+            <div style="width: 24px;"></div> <!-- For spacing -->
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Search clients...">
+        </div>
+        
+        <div class="recent-clients">
+            <div class="recent-clients-title">Recent Clients</div>
+            <div class="recent-clients-grid">
+                <div class="recent-client-item selected">
+                    <div class="client-name">Johnson Family</div>
+                    <div class="client-info">Westmount</div>
+                </div>
+                <div class="recent-client-item">
+                    <div class="client-name">Cooper Residence</div>
+                    <div class="client-info">NDG</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="create-new-client">
+            <div class="create-new-client-icon">+</div>
+            <div>Create New Client</div>
+        </div>
+        
+        <ul class="client-list">
+            <li class="client-item">
+                <div class="client-details">
+                    <div class="client-name">Johnson Family</div>
+                    <div class="client-info">Westmount • Residential</div>
+                </div>
+                <div class="client-select selected">✓</div>
+            </li>
+            
+            <li class="client-item">
+                <div class="client-details">
+                    <div class="client-name">Cooper Residence</div>
+                    <div class="client-info">NDG • Residential</div>
+                </div>
+                <div class="client-select"></div>
+            </li>
+            
+            <li class="client-item">
+                <div class="client-details">
+                    <div class="client-name">Metropolis Commercial</div>
+                    <div class="client-info">Downtown • Commercial</div>
+                </div>
+                <div class="client-select"></div>
+            </li>
+            
+            <li class="client-item">
+                <div class="client-details">
+                    <div class="client-name">Martin Family</div>
+                    <div class="client-info">Côte-des-Neiges • Residential</div>
+                </div>
+                <div class="client-select"></div>
+            </li>
+            
+            <li class="client-item">
+                <div class="client-details">
+                    <div class="client-name">Tech Corridor LLC</div>
+                    <div class="client-info">Saint-Laurent • Commercial</div>
+                </div>
+                <div class="client-select"></div>
+            </li>
+        </ul>
+        
+        <div class="buttons-container">
+            <div class="button secondary-button">Cancel</div>
+            <div class="button primary-button">Select Client</div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="job-creation.html" class="nav-link">Back to Job Creation</a>
+        <a href="confirmation.html" class="nav-link">Next: Confirmation</a>
+    </div>
+    
+    <!-- Mockup Notes -->
+    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; font-size: 14px; color: #666;">
+        <h3>Implementation Notes:</h3>
+        <ul>
+            <li>Recent clients are prominently displayed for quick selection</li>
+            <li>The client list should be sorted alphabetically by default</li>
+            <li>Search filters across client name, address, and notes</li>
+            <li>Only one client can be selected at a time</li>
+            <li>"Create New Client" option should link to the Client Management workflow (UC-CM)</li>
+            <li>After creating a new client, the user should return to this screen with that client selected</li>
+            <li>Consider adding alphabet quick-jump for large client lists</li>
+            <li>The client list should be available offline for selection</li>
+            <li>Selection state should be visually clear with a checkmark or similar indicator</li>
+            <li>Selection is confirmed with the primary button to avoid accidental selections</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -117,7 +117,7 @@ The solution impacts the core financial management processes of small service bu
 | Client Management | Add/Edit/View Clients | Create, update, and view client contact information | High | Foundation for job tracking and invoicing |
 | Client Management | Client Type Tracking | Differentiate one-time vs. recurring clients | Medium | Supports business relationship management |
 | Client Management | Client Search & Filter | Find clients quickly | Medium | Improves efficiency in the field |
-| Job Management | Job Creation & Tracking | Record job details and status | Critical | Core unit for measuring profitability |
+| Job Management | Job Creation & Tracking | Record job details and status (one-time jobs only in MVP) | Critical | Core unit for measuring profitability |
 | Job Management | Job-Client Association | Link jobs to specific clients | Critical | Essential for organization and tracking |
 | Job Management | Job Profitability Calculation | Calculate profit/loss per job (incl. contractor costs, **core basis**) | Critical | Key business insight demanded by users |
 | **Expense Tracking (Core)** | **Mobile Expense Entry with OCR (Core Data) & Smart Suggestions** | **Quick expense logging via OCR (Vendor/Date/Amount)/manual, with context-aware job suggestions** | **Critical** | **Core "ease of use" value prop** |
@@ -163,6 +163,9 @@ The solution impacts the core financial management processes of small service bu
 | Operations | Detailed Crew/Contractor Scheduling | Staff/contractor scheduling and dispatch | Outside financial focus | Yes (Phase 3+) |
 | Operations | Route Optimization | Job location mapping and routing | Outside financial focus | Yes (Phase 3+) |
 | Operations | Equipment Tracking | Detailed equipment management | Outside core financial needs | Yes (Phase 3+) |
+| Job Management | Recurring Jobs | Jobs with fixed schedules (e.g., weekly lawn mowing) | Adds complexity to job creation and tracking | Yes (Phase 2) |
+| Job Management | On-Demand/Condition-Triggered Jobs | Jobs triggered by external conditions (e.g., snow removal after snowfall) | Requires additional monitoring and triggering mechanisms | Yes (Phase 2) |
+| Job Management | External Platform-Originated Jobs | Jobs imported from third-party platforms or service marketplaces | Requires complex integration with external systems | Yes (Phase 2+) |
 | Client Management | CRM Features | Advanced customer relationship management | Beyond MVP needs | Yes (Phase 3+) |
 | Client Management | Client Portal | Client self-service portal | Adds significant complexity | Yes (Phase 3+) |
 | Contractor Management | Advanced Contractor Features | Contract management, onboarding, communication tools, time tracking | Beyond basic payment tracking/splitting for MVP | Yes (Phase 2+) |
